@@ -1,3 +1,12 @@
+// src/App.jsx
+
+const App = () => {
+  return <h1>Hello world!</h1>;
+};
+
+export default App;
+App.jsx Ridar
+
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
@@ -25,3 +34,4 @@ const App = () => {
 };
 
 export default App;
+

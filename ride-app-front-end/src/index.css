@@ -24,8 +24,10 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+  background-color: var(--bg-dark, #0a0a14);
+  color: var(--text-light, #ffffff);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   min-width: 320px;
   min-height: 100vh;
 }

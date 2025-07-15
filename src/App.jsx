@@ -7,21 +7,23 @@ import Footer from "./components/Footer";
 import LandingPage from "./components/LandingPage";
 import BookingForm from "./components/BookingForm";
 import Confirmation from "./components/Confirmation";
+import Dashboard from "./components/dashboard/Dashboard";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/booking" element={<BookingForm />} />
-          <Route path="/confirmation" element={<Confirmation />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/booking" element={<BookingForm />} />
+                    <Route path="/confirmation" element={<Confirmation />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                </Routes>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
 };
 
 export default App;

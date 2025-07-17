@@ -1,12 +1,12 @@
 import React from "react";
-import "../CSS/Footer.css";
+import "../../CSS/booking/Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-col">
-          <h3 className="brand">Riderridar</h3>
+          <h3 className="brand">Ridevanta</h3>
           <p className="tagline">
             Premium chauffeur services for discerning executives in Singapore
           </p>
@@ -52,12 +52,12 @@ const Footer = () => {
             <br />
             Singapore 018983
           </p>
-          <p>Email: contact@rideridar.com</p>
+          <p>Email: contact@ridevanta.com</p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        &copy; {new Date().getFullYear()} Rideridar. All rights reserved.
+        &copy; {new Date().getFullYear()} Ridevanta. All rights reserved.
       </div>
     </footer>
   );

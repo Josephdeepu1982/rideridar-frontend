@@ -1,0 +1,90 @@
+.tab-booking-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  max-width: 550px;
+  width: 100%;
+  font-family: var(--font-family);
+}
+
+.tab-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.tab-header button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: #cfcccc;
+  color: #333;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-header button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.tab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.form-group-grouped {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-group-grouped .form-group {
+  flex: 1;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.submit-button:hover {
+  background-color: var(--secondary-color);
+}
+
+@media screen and (max-width: 600px) {
+  .form-group-grouped {
+    flex-direction: column;
+  }
+}

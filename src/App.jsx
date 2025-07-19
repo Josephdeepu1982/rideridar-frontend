@@ -1,20 +1,33 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    useLocation,
+    Navigate,
+} from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
 import LandingPage from "./components/LandingPage";
 import TabBookingForm from "./components/booking/TabBookingForm";
 import Confirmation from "./components/booking/Confirmation";
 import CarSelection from "./components/booking/CarSelection";
 import BookingDetails from "./components/booking/BookingDetails";
 import BookingReview from "./components/booking/BookingReview";
+
 import Dashboard from "./components/dashboard/Dashboard";
+import Overview from "./components/dashboard/Overview";
+import Bookings from "./components/dashboard/Bookings";
+import Drivers from "./components/dashboard/Drivers";
+import Account from "./components/dashboard/Account";
 
 const Layout = ({ children }) => {
     const location = useLocation();
 
     // don't show header and footer on the dashboard
-    const hideHeaderFooter = location.pathname === "/dashboard";
+    const hideHeaderFooter = location.pathname.startsWith("/dashboard");
 
     return (
         <div>
@@ -49,7 +62,18 @@ const App = () => {
                             path="/confirmation"
                             element={<Confirmation />}
                         />
-                        <Route path="/dashboard" element={<Dashboard />} />
+                        {/* Dashboard routes with nested structure */}
+                        <Route path="/dashboard" element={<Dashboard />}>
+                            {/* Default dashboard route - redirects to overview */}
+                            <Route
+                                index
+                                element={<Navigate to="overview" replace />}
+                            />
+                            <Route path="overview" element={<Overview />} />
+                            <Route path="bookings" element={<Bookings />} />
+                            <Route path="drivers" element={<Drivers />} />
+                            <Route path="my-account" element={<Account />} />
+                        </Route>
                     </Routes>
                 </div>
             </Layout>

@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-
 import NavigationItem from "./NavigationItem";
+
 import { navigationItems } from "./navigationConfig";
 
 // onCLose prop needed when in mobile view to close the sidebar
@@ -23,14 +25,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 mx="8"
                 justifyContent="space-between"
             >
-                <Text
-                    className="logo"
-                    fontSize="2xl"
-                    fontWeight="bold"
-                    color={useColorModeValue("gray.800", "white")}
-                >
-                    Ridevanta
-                </Text>
+                <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                    <Text
+                        className="logo"
+                        fontSize="2xl"
+                        fontWeight="bold"
+                        color={useColorModeValue("gray.800", "white")}
+                        cursor="pointer"
+                        _hover={{ opacity: 0.8 }}
+                    >
+                        Ridevanta
+                    </Text>
+                </Link>
                 <CloseButton
                     display={{ base: "flex", md: "none" }}
                     onClick={onClose}
@@ -38,7 +44,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 />
             </Flex>
             {navigationItems.map((link) => (
-                <NavigationItem key={link.name} icon={link.icon}>
+                <NavigationItem
+                    key={link.name}
+                    icon={link.icon}
+                    route={link.route}
+                    onClick={onClose}
+                >
                     {link.name}
                 </NavigationItem>
             ))}

@@ -1,14 +1,18 @@
-import { Box, Flex, Icon } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
+
+import { Flex, Icon } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-const NavigationItem = ({ icon, children, ...rest }) => {
+const NavigationItem = ({ icon, children, route, onClick, ...rest }) => {
+    const location = useLocation();
+    const isActive = location.pathname === route;
+
+    const activeColor = useColorModeValue("cyan.400", "cyan.300");
+    const inactiveColor = useColorModeValue("gray.600", "gray.300");
+    const activeBg = useColorModeValue("cyan.50", "cyan.900");
+
     return (
-        <Box
-            as="a"
-            href="#"
-            textDecoration="none"
-            _focus={{ boxShadow: "none" }}
-        >
+        <Link to={route} style={{ textDecoration: "none" }} onClick={onClick}>
             <Flex
                 align="center"
                 p="4"
@@ -16,7 +20,8 @@ const NavigationItem = ({ icon, children, ...rest }) => {
                 borderRadius="lg"
                 role="group"
                 cursor="pointer"
-                color={useColorModeValue("gray.600", "gray.300")}
+                bg={isActive ? activeBg : "transparent"}
+                color={isActive ? activeColor : inactiveColor}
                 _hover={{
                     bg: "cyan.400",
                     color: "white",
@@ -27,7 +32,7 @@ const NavigationItem = ({ icon, children, ...rest }) => {
                     <Icon
                         mr="4"
                         fontSize="16"
-                        color={useColorModeValue("gray.600", "gray.300")}
+                        color={isActive ? activeColor : inactiveColor}
                         _groupHover={{
                             color: "white",
                         }}
@@ -36,7 +41,7 @@ const NavigationItem = ({ icon, children, ...rest }) => {
                 )}
                 {children}
             </Flex>
-        </Box>
+        </Link>
     );
 };
 

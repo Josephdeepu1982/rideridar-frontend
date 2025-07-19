@@ -1,10 +1,13 @@
+import { Outlet } from "react-router-dom";
+
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Box, Text, Drawer } from "@chakra-ui/react";
+import { Box, Drawer } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
+
 import SidebarContent from "./navigation/SidebarContent";
 import MobileNavigation from "./navigation/MobileNavigation";
 
-const SidebarNavigation = ({ children }) => {
+const Navigation = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
@@ -33,10 +36,11 @@ const SidebarNavigation = ({ children }) => {
                 minH="calc(100vh - 80px)"
                 color={useColorModeValue("gray.800", "white")}
             >
-                {children || <Text>Main page</Text>}
+                {/* Outlet renders the nested route components */}
+                <Outlet />
             </Box>
         </Box>
     );
 };
 
-export default SidebarNavigation;
+export default Navigation;

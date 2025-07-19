@@ -22,6 +22,6 @@ const createBooking = async (bookingData) => {
     }
 };
 
-console.log(await index());
+console.log("rideService data :", await index());
 
 export { index, createBooking };

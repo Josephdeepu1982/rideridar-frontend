@@ -1,7 +1,7 @@
 import { Box, Flex, Icon } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavigationItem = ({ icon, children, ...rest }) => {
     return (
         <Box
             as="a"
@@ -40,4 +40,4 @@ const NavItem = ({ icon, children, ...rest }) => {
     );
 };
 
-export default NavItem;
+export default NavigationItem;

@@ -1,6 +1,7 @@
 import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import NavItem from "./NavigationItem";
+
+import NavigationItem from "./NavigationItem";
 import { navigationItems } from "./navigationConfig";
 
 // onCLose prop needed when in mobile view to close the sidebar
@@ -37,9 +38,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 />
             </Flex>
             {navigationItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavigationItem key={link.name} icon={link.icon}>
                     {link.name}
-                </NavItem>
+                </NavigationItem>
             ))}
         </Box>
     );

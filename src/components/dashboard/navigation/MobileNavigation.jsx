@@ -48,16 +48,6 @@ const MobileNavigation = ({ onOpen, ...rest }) => {
                 Ridevanta
             </Text>
 
-            {/* Show current page name on desktop */}
-            <Text
-                display={{ base: "none", md: "block" }}
-                fontSize="lg"
-                fontWeight="medium"
-                color={useColorModeValue("gray.800", "white")}
-            >
-                {getCurrentPageName()}
-            </Text>
-
             <HStack spacing={{ base: "0", md: "6" }}>
                 <Flex alignItems={"center"}>
                     <UserProfileMenu />

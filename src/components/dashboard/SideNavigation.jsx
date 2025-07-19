@@ -21,28 +21,28 @@ import {
 import { useColorModeValue } from "@/components/ui/color-mode";
 
 import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
-    FiMenu,
-    FiChevronDown,
-} from "react-icons/fi";
+    FaHome,
+    FaRegCalendarAlt,
+    FaRegAddressCard,
+    FaRegUser,
+    FaBars,
+    FaAngleDown,
+} from "react-icons/fa";
 
 const LinkItems = [
-    { name: "Overview", icon: FiHome },
-    { name: "Bookings", icon: FiTrendingUp },
-    { name: "Drivers", icon: FiCompass },
-    { name: "My Account", icon: FiStar },
+    { name: "Overview", icon: FaHome },
+    { name: "Bookings", icon: FaRegCalendarAlt },
+    { name: "Drivers", icon: FaRegAddressCard },
+    { name: "My Account", icon: FaRegUser },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {
     return (
         <Box
             transition="0.3s ease"
-            bg={useColorModeValue("white", "gray.900")}
+            bg={useColorModeValue("white", "gray.800")}
             borderRight="1px"
-            borderRightColor={useColorModeValue("gray.200", "gray.700")}
+            borderRightColor={useColorModeValue("gray.200", "gray.600")}
             w={{ base: "full", md: 60 }}
             pos="fixed"
             h="full"
@@ -54,12 +54,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 mx="8"
                 justifyContent="space-between"
             >
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Logo
+                <Text
+                    className="logo"
+                    fontSize="2xl"
+                    fontWeight="bold"
+                    color={useColorModeValue("gray.800", "white")}
+                >
+                    Ridevanta
                 </Text>
                 <CloseButton
                     display={{ base: "flex", md: "none" }}
                     onClick={onClose}
+                    color={useColorModeValue("gray.600", "gray.300")}
                 />
             </Flex>
             {LinkItems.map((link) => (
@@ -86,6 +92,7 @@ const NavItem = ({ icon, children, ...rest }) => {
                 borderRadius="lg"
                 role="group"
                 cursor="pointer"
+                color={useColorModeValue("gray.600", "gray.300")}
                 _hover={{
                     bg: "cyan.400",
                     color: "white",
@@ -96,6 +103,7 @@ const NavItem = ({ icon, children, ...rest }) => {
                     <Icon
                         mr="4"
                         fontSize="16"
+                        color={useColorModeValue("gray.600", "gray.300")}
                         _groupHover={{
                             color: "white",
                         }}
@@ -115,9 +123,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue("white", "gray.900")}
+            bg={useColorModeValue("white", "gray.800")}
             borderBottomWidth="1px"
-            borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+            borderBottomColor={useColorModeValue("gray.200", "gray.600")}
             justifyContent={{ base: "space-between", md: "flex-end" }}
             {...rest}
         >
@@ -126,16 +134,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 onClick={onOpen}
                 variant="outline"
                 aria-label="open menu"
-                icon={<FiMenu />}
+                icon={<FaBars />}
+                color={useColorModeValue("gray.600", "gray.300")}
             />
 
             <Text
                 display={{ base: "flex", md: "none" }}
                 fontSize="2xl"
-                fontFamily="monospace"
-                fontWeight="bold"
+                className="logo"
+                color={useColorModeValue("gray.800", "white")}
             >
-                Logo
+                Ridevanta
             </Text>
 
             <HStack spacing={{ base: "0", md: "6" }}>
@@ -146,6 +155,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
                                 py={2}
                                 transition="all 0.3s"
                                 _focus={{ boxShadow: "none" }}
+                                bg="transparent"
+                                color={useColorModeValue(
+                                    "gray.600",
+                                    "gray.300"
+                                )}
+                                _hover={{
+                                    bg: useColorModeValue(
+                                        "gray.100",
+                                        "gray.700"
+                                    ),
+                                }}
                             >
                                 <HStack>
                                     <Avatar.Root size={"sm"}>
@@ -161,24 +181,41 @@ const MobileNav = ({ onOpen, ...rest }) => {
                                         spacing="1px"
                                         ml="2"
                                     >
-                                        <Text fontSize="sm">Justina Clark</Text>
-                                        <Text fontSize="xs" color="gray.600">
+                                        <Text
+                                            fontSize="sm"
+                                            color={useColorModeValue(
+                                                "gray.800",
+                                                "white"
+                                            )}
+                                        >
+                                            Justina Clark
+                                        </Text>
+                                        <Text
+                                            fontSize="xs"
+                                            color={useColorModeValue(
+                                                "gray.600",
+                                                "gray.400"
+                                            )}
+                                        >
                                             Admin
                                         </Text>
                                     </VStack>
                                     <Box display={{ base: "none", md: "flex" }}>
-                                        <FiChevronDown />
+                                        <FaAngleDown />
                                     </Box>
                                 </HStack>
                             </Button>
                         </Menu.Trigger>
 
                         <Menu.Content
-                            bg={useColorModeValue("white", "gray.900")}
+                            bg={useColorModeValue("white", "gray.800")}
                             borderColor={useColorModeValue(
                                 "gray.200",
-                                "gray.700"
+                                "gray.600"
                             )}
+                            color={useColorModeValue("gray.800", "white")}
+                            placement="bottom-end"
+                            offset={[0, 8]}
                         >
                             <Menu.Item>Profile</Menu.Item>
                             <Menu.Item>Settings</Menu.Item>
@@ -194,13 +231,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
 };
 
 const SideNavigation = () => {
-    // https://www.reactuse.com/state/usedisclosure/
-    // useDisclosure is a custom hook that manages the open/close state of a component, typically used for modals or drawers.
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
-            <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+            <Box minH="100vh" bg={useColorModeValue("gray.50", "gray.900")}>
                 <SidebarContent
                     onClose={onClose}
                     display={{ base: "none", md: "block" }}
@@ -218,8 +253,14 @@ const SideNavigation = () => {
                     </Drawer.Content>
                 </Drawer.Root>
                 <MobileNav onOpen={onOpen} />
-                <Box ml={{ base: 0, md: 60 }} p="4">
-                    {/* Content */}
+                <Box
+                    ml={{ base: 0, md: 60 }}
+                    p="4"
+                    bg={useColorModeValue("white", "gray.800")}
+                    minH="calc(100vh - 80px)"
+                    color={useColorModeValue("gray.800", "white")}
+                >
+                    <Text>Main page</Text>
                 </Box>
             </Box>
         </>

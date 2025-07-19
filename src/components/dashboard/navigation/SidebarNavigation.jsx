@@ -1,8 +1,8 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Box, Text, Drawer } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import SidebarContent from "./navigation/SidebarContent";
-import MobileNavigation from "./navigation/MobileNavigation";
+import SidebarContent from "./SidebarContent";
+import MobileNavigation from "./MobileNavigation";
 
 const SidebarNavigation = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();

@@ -1,4 +1,4 @@
-import SidebarNavigation from "./SidebarNavigation";
+import SidebarNavigation from "./navigation/SidebarNavigation";
 
 const Dashboard = () => {
     return (

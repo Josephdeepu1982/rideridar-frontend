@@ -5,7 +5,6 @@ import {
     FaRegAddressCard,
     FaRegUser,
 } from "react-icons/fa";
-import { href } from "react-router-dom";
 
 export const navigationItems = [
     { name: "Overview", icon: FaHome },

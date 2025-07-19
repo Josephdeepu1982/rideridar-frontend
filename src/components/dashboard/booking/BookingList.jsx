@@ -1,5 +1,7 @@
 import { getBookings } from "@/services/bookingService";
+import { Grid, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import BookingCard from "./BookingCard";
 
 const BookingList = () => {
     const [errorMessage, setErrorMessage] = useState("");
@@ -30,27 +32,26 @@ const BookingList = () => {
     return (
         <div>
             {bookingsData.length > 0 ? (
-                <div>
+                <Grid
+                    templateColumns={{
+                        base: "repeat(1, 1fr)",
+                        sm: "repeat(2, 1fr)",
+                        lg: "repeat(3, 1fr)",
+                    }}
+                    gap="3"
+                >
                     {bookingsData.map((booking, index) => {
                         return (
-                            <div
+                            <BookingCard
+                                data={booking}
+                                index={index}
                                 key={index}
-                                style={{
-                                    marginBottom: "20px",
-                                    padding: "10px",
-                                    border: "1px solid #ccc",
-                                }}
-                            >
-                                <p>Booking ID: Temorary ID {index}</p>
-                                <p>Ride: {booking.trip.vehicleType}</p>
-                                <p>Status: {booking.status}</p>
-                                {/* Add more booking details as needed */}
-                            </div>
+                            />
                         );
                     })}
-                </div>
+                </Grid>
             ) : (
-                <div>No bookings found</div>
+                <Text>No bookings found.</Text>
             )}
         </div>
     );

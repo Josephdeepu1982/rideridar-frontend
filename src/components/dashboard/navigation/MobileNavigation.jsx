@@ -1,9 +1,23 @@
+import { useLocation } from "react-router-dom";
+
 import { Flex, IconButton, Text, HStack } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { FaBars } from "react-icons/fa";
+
 import UserProfileMenu from "./UserProfileMenu";
+import { navigationItems } from "./navigationConfig";
 
 const MobileNavigation = ({ onOpen, ...rest }) => {
+    const location = useLocation();
+
+    // Find current page name based on route
+    const getCurrentPageName = () => {
+        const currentItem = navigationItems.find(
+            (item) => item.route === location.pathname
+        );
+        return currentItem?.name || "Dashboard";
+    };
+
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -32,6 +46,16 @@ const MobileNavigation = ({ onOpen, ...rest }) => {
                 color={useColorModeValue("gray.800", "white")}
             >
                 Ridevanta
+            </Text>
+
+            {/* Show current page name on desktop */}
+            <Text
+                display={{ base: "none", md: "block" }}
+                fontSize="lg"
+                fontWeight="medium"
+                color={useColorModeValue("gray.800", "white")}
+            >
+                {getCurrentPageName()}
             </Text>
 
             <HStack spacing={{ base: "0", md: "6" }}>

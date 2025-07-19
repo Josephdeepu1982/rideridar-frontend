@@ -1,10 +1,12 @@
-import SidebarNavigation from "./navigation/SidebarNavigation";
+import { Outlet } from "react-router-dom";
+import Navigation from "./Navigation";
 
 const Dashboard = () => {
     return (
-        <>
-            <SidebarNavigation />
-        </>
+        <Navigation>
+            {/* This will render matching child route */}
+            <Outlet />
+        </Navigation>
     );
 };
 

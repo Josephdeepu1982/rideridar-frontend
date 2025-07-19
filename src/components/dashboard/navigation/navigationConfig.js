@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 
 export const navigationItems = [
-    { name: "Overview", icon: FaHome, route: "/dashboard" },
+    { name: "Overview", icon: FaHome, route: "/dashboard/overview" },
     { name: "Bookings", icon: FaRegCalendarAlt, route: "/dashboard/bookings" },
     { name: "Drivers", icon: FaRegAddressCard, route: "/dashboard/drivers" },
     { name: "My Account", icon: FaRegUser, route: "/dashboard/my-account" },

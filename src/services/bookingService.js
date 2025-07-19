@@ -13,7 +13,7 @@ const getBookings = async () => {
         const data = await res.json();
 
         if (data) {
-            console.log(data);
+            // console.log(data);
             return data; // returns the bookings array
         }
     } catch (err) {

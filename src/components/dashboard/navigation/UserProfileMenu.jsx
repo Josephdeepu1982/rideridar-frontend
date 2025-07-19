@@ -6,9 +6,11 @@ import {
     VStack,
     Text,
     Menu,
+    Portal,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { FaAngleDown } from "react-icons/fa";
+import { userProfileItems } from "./navigationConfig";
 
 const UserProfileMenu = () => {
     return (
@@ -57,18 +59,39 @@ const UserProfileMenu = () => {
                 </Button>
             </Menu.Trigger>
 
-            <Menu.Content
-                bg={useColorModeValue("white", "gray.800")}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                color={useColorModeValue("gray.800", "white")}
-                placement="bottom-end"
-                offset={[0, 8]}
-            >
-                <Menu.Item>Profile</Menu.Item>
-                <Menu.Item>Settings</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item>Sign out</Menu.Item>
-            </Menu.Content>
+            <Portal>
+                <Menu.Positioner>
+                    <Menu.Content
+                        bg={useColorModeValue("white", "gray.800")}
+                        borderColor={useColorModeValue("gray.200", "gray.600")}
+                        color={useColorModeValue("gray.800", "white")}
+                        // placement="bottom-end"
+                        // offset={[0, 8]}
+                    >
+                        <Menu.ItemGroup>
+                            {userProfileItems.map((link) => (
+                                <Menu.Item
+                                    key={link.href}
+                                    asChild
+                                    value={link.name}
+                                >
+                                    <a
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {link.name}
+                                    </a>
+                                </Menu.Item>
+                            ))}
+                        </Menu.ItemGroup>
+                        <Menu.Separator />
+                        <Menu.ItemGroup>
+                            <Menu.Item value="signout">Sign Out</Menu.Item>
+                        </Menu.ItemGroup>
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Portal>
         </Menu.Root>
     );
 };

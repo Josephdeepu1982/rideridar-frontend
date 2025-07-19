@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/booking/Footer";
-import LandingPage from "./components/booking/LandingPage";
+import Footer from "./components/Footer";
+import LandingPage from "./components/LandingPage";
+import TabBookingForm from "./components/booking/TabBookingForm";
 import Confirmation from "./components/booking/Confirmation";
-// import TabBookingForm from "./components/booking/TabBookingForm";
-// import CarSelection from "./components/booking/CarSelection";
-// import BookingDetails from "./components/booking/BookingDetails";
-// import BookingReview from "./components/booking/BookingReview";
+import CarSelection from "./components/booking/CarSelection";
+import BookingDetails from "./components/booking/BookingDetails";
+import BookingReview from "./components/booking/BookingReview";
 import Dashboard from "./components/dashboard/Dashboard";
 
 const Layout = ({ children }) => {
@@ -32,6 +32,19 @@ const App = () => {
                 <div>
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
+                        <Route path="/booking" element={<TabBookingForm />} />
+                        <Route
+                            path="/car-selection"
+                            element={<CarSelection />}
+                        />
+                        <Route
+                            path="/booking-details"
+                            element={<BookingDetails />}
+                        />
+                        <Route
+                            path="/booking-review"
+                            element={<BookingReview />}
+                        />
                         <Route
                             path="/confirmation"
                             element={<Confirmation />}

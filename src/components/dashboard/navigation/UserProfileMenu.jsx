@@ -17,7 +17,6 @@ const UserProfileMenu = () => {
         <Menu.Root>
             <Menu.Trigger asChild>
                 <Button
-                    py={2}
                     transition="all 0.3s"
                     _focus={{ boxShadow: "none" }}
                     bg="transparent"
@@ -25,16 +24,18 @@ const UserProfileMenu = () => {
                     _hover={{
                         bg: useColorModeValue("gray.100", "gray.700"),
                     }}
+                    height={"fit-content"}
+                    m={0}
                 >
-                    <HStack>
+                    <HStack gap="1rem">
                         <Avatar.Root size={"sm"}>
                             <Avatar.Image src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9" />
                         </Avatar.Root>
                         <VStack
                             display={{ base: "none", md: "flex" }}
                             alignItems="flex-start"
-                            spacing="1px"
                             ml="2"
+                            gap={0}
                         >
                             <Text
                                 fontSize="sm"

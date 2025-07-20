@@ -7,10 +7,9 @@ import {
     Text,
     Avatar,
     Grid,
-    Flex,
 } from "@chakra-ui/react";
 
-import { FaRegEnvelope, FaRegCalendar, FaCar } from "react-icons/fa";
+import { FaRegEnvelope, FaPhoneAlt, FaCar } from "react-icons/fa";
 
 const DriverCard = ({ data }) => {
     const addSpacingPhone = (phone) => {
@@ -20,22 +19,27 @@ const DriverCard = ({ data }) => {
     return (
         <Card.Root variant="outline">
             <Card.Header>
-                <HStack mb="6" gap="3">
+                <HStack gapY={3}>
                     <Avatar.Root>
-                        <Avatar.Image src="https://images.unsplash.com/photo-1511806754518-53bada35f930" />
-                        <Avatar.Fallback name="Nate Foss" />
+                        <Avatar.Image src="https://picsum.photos/200/300" />
+                        <Avatar.Fallback name={data.name} />
                     </Avatar.Root>
                     <Stack gap="0">
-                        <Text fontWeight="semibold" textStyle="sm">
+                        <Card.Title
+                            fontWeight="semibold"
+                            as="h3"
+                            color={"palegoldenrod"}
+                            mb={0}
+                        >
                             {data.name}
-                        </Text>
+                        </Card.Title>
                         <Text color="fg.muted" textStyle="sm">
                             115 Bookings
                         </Text>
                     </Stack>
                 </HStack>
             </Card.Header>
-            <Card.Body>
+            <Card.Body textStyle="sm">
                 <Grid
                     templateColumns={{
                         base: "repeat(1, 1fr)",
@@ -44,30 +48,58 @@ const DriverCard = ({ data }) => {
                     gap={5}
                 >
                     <Stack gap={0}>
-                        <Text color="fg.muted" textStyle="sm">
-                            Email
-                        </Text>
+                        <HStack>
+                            <Icon
+                                mr="1"
+                                fontSize="14"
+                                color="fg.muted"
+                                as={FaRegEnvelope}
+                            />
+                            <Text color="fg.muted">Email</Text>
+                        </HStack>
                         <Text>{data.email}</Text>
                     </Stack>
                     <Stack gap={0}>
-                        <Text color="fg.muted" textStyle="sm">
-                            Phone
-                        </Text>
+                        <HStack>
+                            <Icon
+                                mr="1"
+                                fontSize="14"
+                                color="fg.muted"
+                                as={FaPhoneAlt}
+                            />
+                            <Text color="fg.muted">Phone</Text>
+                        </HStack>
                         <Text>
                             +65 {addSpacingPhone(data.phone.toString())}
                         </Text>
                     </Stack>
                     <Stack columnSpan={2} gap={0}>
-                        <Text color="fg.muted" textStyle="sm">
-                            Vehicle Details
-                        </Text>
                         <HStack>
-                            <Icon mr="1" fontSize="16" as={FaRegEnvelope} />
-                            <Text>{data.email}</Text>
+                            <Icon
+                                mr="1"
+                                fontSize="14"
+                                color="fg.muted"
+                                as={FaCar}
+                            />
+                            <Text color="fg.muted">Vehicle Details</Text>
                         </HStack>
                         <HStack>
-                            <Icon mr="1" fontSize="16" as={FaRegCalendar} />
-                            <Text>{data.email}</Text>
+                            <Text>Plate Number : </Text>
+                            <Text textTransform={"uppercase"}>
+                                {data.vehicle.plateNumber}
+                            </Text>
+                        </HStack>
+                        <HStack>
+                            <Text>Car Model : </Text>
+                            <Text textTransform={"capitalize"}>
+                                {data.vehicle.model}
+                            </Text>
+                        </HStack>
+                        <HStack>
+                            <Text>Ride Type : </Text>
+                            <Text textTransform={"capitalize"}>
+                                {data.vehicle.vehicleType}
+                            </Text>
                         </HStack>
                     </Stack>
                 </Grid>

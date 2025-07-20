@@ -1,9 +1,13 @@
+import { Heading } from "@chakra-ui/react";
+
 const Account = () => {
     return (
-        <div>
-            <h1>My Account</h1>
+        <>
+            <Heading as="h1" textAlign="left" mb={5}>
+                My Account
+            </Heading>
             {/* Additional components or content related to account management can be added here */}
-        </div>
+        </>
     );
 };
 

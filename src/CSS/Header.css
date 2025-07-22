@@ -1,0 +1,30 @@
+/* Header.css */
+.header {
+  background-color: #0a0a14;
+  border-bottom: 1px solid #2a2a3a;
+  padding: 20px;
+  color: white;
+}
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo a {
+  font-family: "Georgia", serif;
+  font-size: 24px;
+  color: #d4af37;
+  text-decoration: none;
+}
+.nav a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.nav a:hover {
+  color: #d4af37;
+}

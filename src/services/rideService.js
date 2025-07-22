@@ -1,3 +1,4 @@
+
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/booking`;
 
 const index = async () => {
@@ -26,3 +27,4 @@ const createBooking = async (bookingData) => {
 console.log(await index());
 
 export { index, createBooking };
+

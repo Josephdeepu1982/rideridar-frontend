@@ -5,14 +5,14 @@ import BookingCard from "./BookingCard";
 
 const BookingList = () => {
     const [errorMessage, setErrorMessage] = useState("");
-    const [bookingsData, setbookingsData] = useState([]);
+    const [bookingsData, setBookingsData] = useState([]);
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
                 const bookings = await getBookings();
                 console.log("Bookings fetched:", bookings);
-                setbookingsData(bookings);
+                setBookingsData(bookings);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 setErrorMessage(
@@ -45,7 +45,7 @@ const BookingList = () => {
                             <BookingCard
                                 data={booking}
                                 index={index}
-                                key={index}
+                                key={`booking-${index}`}
                             />
                         );
                     })}

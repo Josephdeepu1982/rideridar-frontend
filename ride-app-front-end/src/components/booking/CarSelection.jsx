@@ -6,12 +6,12 @@ import mpvImage from "../../assets/Alphard.png";
 import luxurySedanImage from "../../assets/BMW7.png";
 
 const CarSelection = () => {
-  const location = useLocation(); //tells us where we are in the app
+  const location = useLocation(); // Retrieves data passed from the previous page
   const navigate = useNavigate(); //helps us navigate to and from other pages
 
-  const [selectedCar, setSelectedCar] = useState(null);
+  const [selectedCar, setSelectedCar] = useState(null); //tracks which car the user selects
 
-  const bookingData = location.state || {}; //saves booking data passed from the previous page using navigate() function
+  const bookingData = location.state || {}; //saves booking data passed from the previous page
 
   const carOptions = [
     {
@@ -40,6 +40,7 @@ const CarSelection = () => {
     },
   ];
 
+  //Updates the selected car state when a user clicks a card.
   const handleCarSelect = (id) => {
     setSelectedCar(id);
   };
@@ -48,14 +49,16 @@ const CarSelection = () => {
     if (!selectedCar) {
       return;
     }
+    //searched carOptions array for the car id that was selected
     const selectedCarDetails = carOptions.find((carOption) => {
       return carOption.id === selectedCar;
     });
 
+    //navigates to next page passing the vehicle type (id), vehicle details and original booking data
     navigate("/booking-details", {
       state: {
         vehicleType: selectedCar,
-        vehicleDetails: selectedCarDetails,
+        vehicleDetails: selectedCarDetails, //the vehicle object
         tripData: bookingData,
       },
     });
@@ -68,6 +71,8 @@ const CarSelection = () => {
   return (
     <div className="car-selection-container">
       <h2>Select Your Vehicle</h2>
+
+      {/* displays each car as a clickable card. highlights the selected card with a special CSS class */}
       <div className="car-grid">
         {carOptions.map((carOption) => {
           return (
@@ -75,8 +80,9 @@ const CarSelection = () => {
               key={carOption.id}
               className={
                 selectedCar === carOption.id ? "car-card selected" : "car-card"
-              } //hihglights card once card is selected
-              onClick={() => handleCarSelect(carOption.id)} //updates the selectedCar state to remember which car was chosen.
+                //highlights card once card is selected
+              }
+              onClick={() => handleCarSelect(carOption.id)} //updates the selectedCar state to the car that was chosen.
             >
               <img
                 src={carOption.image}

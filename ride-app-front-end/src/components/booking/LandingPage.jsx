@@ -15,7 +15,7 @@ const LandingPage = () => {
           </p>
           <button className="learn-more-btn">Learn More</button>
         </div>
-
+{/* imports the TabBookingForm  */}
         <div className="hero-form">
           <TabBookingForm />
         </div>
@@ -25,3 +25,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+

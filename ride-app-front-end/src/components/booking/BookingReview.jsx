@@ -7,11 +7,34 @@ const BookingReview = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const booking = location.state || {}; //saves booking data passed from the previous page using navigate() function
+  const booking = location.state || {}; //Retrieves the full booking object passed from the previous step
 
+  //calls createBooking service to save the booking to MongoDB.
   const handleConfirmation = async () => {
     try {
-      const createBooking = await createBooking(booking);
+      const pin = Math.floor(1000 + Math.random() * 9000).toString();
+
+      const finalBooking = {
+        trip: {
+          pickup: booking.tripData.pickupLocation,
+          dropoff: booking.tripData.destination,
+          date: booking.tripData.date,
+          time: booking.tripData.time,
+          vehicleType: booking.vehicleType,
+          paxNumber: booking.paxNumber,
+          specialRequests: booking.specialRequests,
+          ridePurpose: "flight", // or "local", depending on your logic
+        },
+        flight: booking.flight,
+        contact: booking.contact,
+        guest: booking.guest,
+        bookingReview: {
+          isDepositTncChecked: booking.agreement.isDepositTncChecked,
+          isAdminTncChecked: booking.agreement.isAdminTncChecked,
+        },
+        confirmationPin: pin,
+      };
+      const savedBooking = await createBooking(finalBooking);
       console.log("Booking created!", createBooking);
       navigate("/confirmation", { state: savedBooking });
     } catch (error) {
@@ -20,7 +43,7 @@ const BookingReview = () => {
   };
 
   const handleBack = () => {
-    navigate("/booking-details", { state: booking }); //go back to BookingDetails
+    navigate("/booking-details", { state: booking }); //go back to BookingDetails with all data preserved
   };
 
   return (
@@ -31,6 +54,7 @@ const BookingReview = () => {
         <p>
           <strong>Pickup:</strong> {booking.tripData?.pickupLocation}
         </p>
+        {/* tripData was defined in carSelection page */}
         <p>
           <strong>Destination:</strong> {booking.tripData?.destination}
         </p>
@@ -73,6 +97,7 @@ const BookingReview = () => {
         </div>
       )}
 
+      {/* conditional */}
       {booking.flight && (
         <div className="review-section">
           <h3>Flight Info</h3>
@@ -86,7 +111,7 @@ const BookingReview = () => {
             <strong>Gate:</strong> {booking.flight.gate}
           </p>
           <p>
-            <strong>Luggage:</strong> {booking.flight.lugaggeNumber}
+            <strong>Luggage:</strong> {booking.flight.luggageNumber}
           </p>
           <p>
             <strong>Gate Pickup:</strong>{" "}

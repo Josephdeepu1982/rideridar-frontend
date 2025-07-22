@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 const TabBookingForm = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("airport");
+  //Controls which form is shown: "airport" or "local".
+
+  //States to manage input for "airport" and "local"
   const [airportFormData, setAirportFormData] = useState({
     flightNumber: "",
     pickupLocation: "",
@@ -20,10 +23,12 @@ const TabBookingForm = () => {
     time: "",
   });
 
+  //event hanldlers for "airport" & "local"
   const handleAirportChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
+    //extracts name ("flightNumber") and value {"SQ123"} from event
+    //copies the exisitng form data and add in the specific field that changed [name]: value
     setAirportFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
@@ -32,11 +37,13 @@ const TabBookingForm = () => {
   const handleLocalChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+
     setLocalFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
   };
 
+  //determines which form data to send based on active tab
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -46,11 +53,13 @@ const TabBookingForm = () => {
     if (activeTab === "airport") {
       formDataToSend = airportFormData;
       ridePurpose = "airport";
+      //ridepurpose lets subsequent pages know "airport" or "local"
     } else {
       formDataToSend = localFormData;
       ridePurpose = "local";
     }
     //passing data to the car selection page.
+    //state: { ... } Passes data to the destination route using React Router's location.state.
     navigate("/car-selection", {
       state: {
         ...formDataToSend,
@@ -58,8 +67,6 @@ const TabBookingForm = () => {
       },
     });
     console.log(`Form submitted ${activeTab}:`, formDataToSend);
-
-    //send to backend
   };
 
   return (
@@ -93,6 +100,7 @@ const TabBookingForm = () => {
           </div>
         )}
 
+        {/* value toggles between "airport" and "local" using terenary operator for active tab */}
         <div className="form-group">
           <label>Pickup Location</label>
           <input

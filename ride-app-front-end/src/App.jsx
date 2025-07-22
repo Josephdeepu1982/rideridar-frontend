@@ -10,6 +10,7 @@ import Confirmation from "./components/booking/Confirmation";
 import CarSelection from "./components/booking/CarSelection";
 import BookingDetails from "./components/booking/BookingDetails";
 import BookingReview from "./components/booking/BookingReview";
+import BookingStatus from "./components/booking/BookingStatus";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/booking-details" element={<BookingDetails />} />
           <Route path="/booking-review" element={<BookingReview />} />
           <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/booking-status" element={<BookingStatus />} />
         </Routes>
         <Footer />
       </div>

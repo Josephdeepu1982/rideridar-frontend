@@ -6,13 +6,14 @@ const BookingDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const bookingData = location.state || {}; //saves booking data passed from the previous page using navigate() function
-
-  const isAirportTransfer = bookingData.tripData.ridePurpose === "airport"; //ridePurpose is defined in TabBookingForm
+  const bookingData = location.state || {}; //Retrives data passed from the previous page (ride type, car selection, booking info)
+  const isAirportTransfer = bookingData.tripData.ridePurpose === "airport"; //Determines whether the booking is for an airport transfer (ridePurpose is defined in TabBookingForm) and conditoanlly show airport specific fields (Flight number, terminal, gate).
 
   console.log("Booking Data:", bookingData);
   console.log("Ride Purpose:", bookingData.ridePurpose);
 
+  //modal is a type of popup window that appears on top of main content
+  //when user clicks the link the showTerms Modal is 'true' and the modal is rendered.
   const [showTermsModal, setShowTermsModal] = useState(false);
   const openTermsModal = () => {
     setShowTermsModal(true);
@@ -21,6 +22,7 @@ const BookingDetails = () => {
     setShowTermsModal(false);
   };
 
+  //state to store user input
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -42,6 +44,7 @@ const BookingDetails = () => {
   const paxArray = [1, 2, 3, 4, 5, 6, 7];
   const luggageArray = [0, 1, 2, 3, 4, 5];
 
+  //updates formData state
   const handleChange = (event) => {
     const name = event.target.name;
     const value =
@@ -53,11 +56,11 @@ const BookingDetails = () => {
       return { ...prev, [name]: value };
     });
   };
-  //copies all exisitng key value pairs in formData and updates/adds a key based on the inputs name attribute. If name = "email" and value = "joe@example.com", this updates formData.email.
 
+  //form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    //combines previous bookingdata with new user input (formData)
     const finalBooking = {
       ...bookingData,
       contact: {
@@ -72,14 +75,14 @@ const BookingDetails = () => {
         isAdminTncChecked: formData.generalTerms,
       },
     };
-
+    //conditonal data
     if (formData.bookingForOthers) {
       finalBooking.guest = {
         name: formData.guestName,
         phone: formData.guestPhone,
       };
     }
-
+    //conditional data for airport
     if (isAirportTransfer) {
       finalBooking.flight = {
         number: formData.flightNumber,
@@ -168,7 +171,7 @@ const BookingDetails = () => {
           />
           <label htmlFor="bookingForOthers">Booking for someone else?</label>
         </div>
-
+        {/* If checked, reveals additional fields: Guest Name &Guest Contact */}
         {formData.bookingForOthers && (
           <>
             <div className="guest-card">
@@ -197,7 +200,7 @@ const BookingDetails = () => {
             </div>
           </>
         )}
-
+        {/* only shown if ride is airport transfer => isAirportTRansfer is true */}
         {isAirportTransfer && (
           <>
             <div className="guest-card">

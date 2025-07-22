@@ -55,7 +55,7 @@ const Footer = () => {
           <p>Email: contact@ridevanta.com</p>
         </div>
       </div>
-
+      {/* Displays the current year using JS Date object. */}
       <div className="footer-bottom">
         &copy; {new Date().getFullYear()} Ridevanta. All rights reserved.
       </div>

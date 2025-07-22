@@ -5,33 +5,19 @@ import { Link } from "react-router-dom";
 
 const Confirmation = () => {
   const location = useLocation();
-  const Navigation = useNavigate();
-  const bookingData = location.state || {};
+  const navigation = useNavigate();
 
-  const [referenceNumber, setReferenceNumber] = useState("");
+  const bookingData = location.state || {}; //Retrieves the full booking object passed from the review page.
 
-  //generate a refernce number when loaded
-  useEffect(() => {
-    const generateRef = () => {
-      const timestamp = Date.now().toString().slice(-4); //Gets the current timestamp in milliseconds and slices the last 4 digits.
-      const initials = bookingData.contact?.name
-        ? bookingData.contact.name
-            .split(" ")
-            .map((n) => n[0])
-            .join("")
-        : "XX"; //Extracts initials from the contact’s name (e.g., "Jane Doe" → JD).
-      return `RV-${initials.toUpperCase()}-${timestamp}`;
-    };
-    setReferenceNumber(generateRef());
-  }, []);
+  const pin = bookingData.confirmationPin;
 
   return (
     <div className="confirmation-container">
       <h2>Booking Confirmed</h2>
       <p>Thankyou for choosing Ridevanta</p>
       <div className="reference-box">
-        <h4>Your Reference Number:</h4>
-        <p className="ref-number">{referenceNumber}</p>
+        <h4>Your 4-digit Confirmation PIN:</h4>
+        <p className="ref-number">{pin}</p>
 
         <div className="next-steps">
           <strong>What happens next:</strong>
@@ -44,14 +30,12 @@ const Confirmation = () => {
         </div>
       </div>
 
-
       <div className="button-row">
         <Link to="/" className="return-btn">
           Return to Home
         </Link>
       </div>
     </div>
-    
   );
 };
 

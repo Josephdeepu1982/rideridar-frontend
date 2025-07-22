@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
     BrowserRouter,
     Routes,
@@ -9,7 +10,6 @@ import {
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
 import LandingPage from "./components/LandingPage";
 import TabBookingForm from "./components/booking/TabBookingForm";
 import Confirmation from "./components/booking/Confirmation";
@@ -79,6 +79,7 @@ const App = () => {
             </Layout>
         </BrowserRouter>
     );
+
 };
 
 export default App;

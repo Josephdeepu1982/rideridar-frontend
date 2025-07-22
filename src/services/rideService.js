@@ -3,7 +3,7 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/booking`;
 const index = async () => {
   try {
     const res = await fetch(BASE_URL); //GET request
-    return res.json(); //returns JSON response
+    return res.json(); //retruns JSON response
   } catch (err) {
     console.log(err);
   }
@@ -18,7 +18,7 @@ const createBooking = async (bookingData) => {
     });
     return res.json();
   } catch (error) {
-    console.error("Error Creating Booking",error);
+    console.error("Error Creating Booking", error);
   }
 };
 

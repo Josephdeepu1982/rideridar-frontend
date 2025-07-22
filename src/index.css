@@ -22,11 +22,11 @@
 /* ===============================
    Reset & Base Styling
 ================================= */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 body {
   font-family: var(--font-family);
@@ -70,11 +70,11 @@ h6 {
   font-size: 0.875rem;
 }
 
-p {
+/* p {
   font-size: 1rem;
   color: var(--muted-text);
   margin-bottom: 1rem;
-}
+} */
 
 /* ===============================
    Links

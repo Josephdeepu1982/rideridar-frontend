@@ -1,4 +1,5 @@
 import React from "react";
+
 import "../assets/css/Footer.css";
 
 const Footer = () => {
@@ -12,6 +13,7 @@ const Footer = () => {
                         Singapore
                     </p>
                 </div>
+
 
                 <div className="footer-col">
                     <h4>Services</h4>
@@ -63,6 +65,7 @@ const Footer = () => {
             </div>
         </footer>
     );
+
 };
 
 export default Footer;

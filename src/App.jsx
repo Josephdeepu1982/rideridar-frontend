@@ -52,6 +52,7 @@ const App = () => {
             <Route path="/booking-details" element={<BookingDetails />} />
             <Route path="/booking-review" element={<BookingReview />} />
             <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/booking-status" element={<BookingStatus />} />
             {/* Dashboard routes with nested structure */}
             <Route path="/dashboard" element={<Dashboard />}>
               {/* Default dashboard route - redirects to overview */}

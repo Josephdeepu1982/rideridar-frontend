@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../assets/css/booking/BookingStatus.css";
 
 const BookingStatus = () => {
   const [pin, setPin] = useState("");
@@ -21,26 +22,28 @@ const BookingStatus = () => {
   };
 
   return (
-    <div className="booking-status-container">
-      <h2>Check your booking status</h2>
-      <input
-        type="text"
-        value={pin}
-        onChange={(event) => {
-          setPin(event.target.value);
-        }}
-        maxLength={4}
-        placeholder="Enter 4-digit PIN"
-      />
-      <button onClick={handleCheckStatus}>Check Status</button>
+    <div className="booking-status-wrapper">
+      <div className="booking-status-container">
+        <h2>Check your booking status</h2>
+        <input
+          type="text"
+          value={pin}
+          onChange={(event) => {
+            setPin(event.target.value);
+          }}
+          maxLength={4}
+          placeholder="Enter 4-digit PIN"
+        />
+        <button onClick={handleCheckStatus}>Check Status</button>
 
-      {error && <p className="error">{error}</p>}
+        {error && <p className="error">{error}</p>}
 
-      {booking && (
-        <div className="status-details">
-          <h3>Status: {booking.status}</h3>
-        </div>
-      )}
+        {booking && (
+          <div className="status-details">
+            <h3>Status: {booking.status}</h3>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

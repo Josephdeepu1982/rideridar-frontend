@@ -1,176 +1,134 @@
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #fbbf24;
-  margin: 2rem 0 1rem;
-  font-family: "Georgia", serif;
-}
+/* LandingPage.css */
 
-.services-section {
-  background-color: #0a0a14; /* Match hero and site theme */
-  padding: 4rem 2rem;
-  color: #cbd5e1;
-}
-
-.services-section .section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #fbbf24;
-  font-family: "Georgia", serif;
-}
-
-.services {
+.landing-page {
+  position: relative;
+  background-image: url("../../assets/images/booking/singapore-flyer-219908_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.service-card {
-  background-color: #1a1a24;
-  border: 1px solid #2a2a3a;
-  padding: 2rem;
-  border-radius: 8px;
-  flex: 1 1 300px;
-  max-width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card h3 {
-  color: #fbbf24;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-}
-
-.service-card p {
-  color: #94a3b8;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.1);
-}
-
-/* Luxury Fleet */
-.fleet-section {
-  background-color: #0a0a14;
-  padding: 4rem 2rem;
+  align-items: center;
   color: white;
 }
 
-.fleet-intro {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  color: #cbd5e1;
-}
-
-.fleet-cards {
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(15, 15, 15, 0.9),
+    rgba(15, 15, 15, 0.4)
+  );
   display: flex;
-  gap: 2rem;
   justify-content: center;
-  flex-wrap: wrap;
-}
-
-.fleet-card {
-  background-color: #1e1e2f;
-  border: 1px solid #2a2a3a;
+  align-items: center;
   padding: 2rem;
-  max-width: 300px;
-  flex: 1 1 280px;
+  box-sizing: border-box;
+}
+
+.landing-content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: rgba(29, 28, 28, 0.75);
+  padding: 2rem;
   border-radius: 8px;
-  text-align: center;
-  color: #cbd5e1;
+  color: #111;
 }
 
-.fleet-card h3 {
-  color: #fbbf24;
-  margin-bottom: 0.25rem;
+.text-section {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
 }
 
-.fleet-card h4 {
+.text-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.text-section p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.learn-more-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
   font-size: 1rem;
-  color: #e2e8f0;
-  margin-bottom: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
 }
 
-.fleet-meta {
-  margin-top: 1.25rem;
+.learn-more-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.form-section {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+}
+
+.landing-hero {
+  width: 100%;
+  background: url("../../assets/images/booking/singapore-flyer-219908_1280.jpg") no-repeat
+    center center;
+  background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+
+.landing-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.reserve-btn {
-  background-color: transparent;
-  border: 1px solid #fbbf24;
-  color: #fbbf24;
-  padding: 6px 12px;
-  text-decoration: none;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  border-radius: 4px;
-  transition: all 0.3s;
-}
-
-.reserve-btn:hover {
-  background-color: #fbbf24;
-  color: black;
-}
-
-.hero {
-  position: relative;
-  height: 100vh;
-  background: url("https://images.unsplash.com/photo-1631294073235-3e1ea763e702?auto=format&fit=crop&w=2070&q=80")
-    no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
   padding: 2rem;
-  text-align: center;
+  border-radius: 8px;
+}
+
+.hero-text {
+  flex: 1;
+  padding: 1rem;
+}
+
+.hero-text h1 {
+  font-size: 3.75rem;
+  line-height: 1;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  color: rgb(255 255 255);
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  color: rgb(255 255 255);
+}
+
+.learn-more-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #1e3a8a;
   color: white;
-  max-width: 700px;
-  margin: auto;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  font-family: "Georgia", serif;
-}
-
-.hero span {
-  color: #fbbf24;
-}
-
-.hero p {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #e2e8f0;
-}
-
-.cta-btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 12px 24px;
-  background-color: #fbbf24;
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background-color 0.3s;
-  border-radius: 4px;
-}
-
-.cta-btn:hover {
-  background-color: #d4af37;
+.hero-form {
+  flex: 1;
 }

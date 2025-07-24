@@ -8,7 +8,9 @@ import {
     Select,
     VStack,
     Portal,
+    InputGroup,
 } from "@chakra-ui/react";
+import { withMask } from "use-mask-input";
 
 import { vehicleTypes } from "./driverConfig";
 
@@ -120,16 +122,11 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <VStack p={0} align="stretch" gap={2}>
+            <VStack p={0} align="stretch" gap={3}>
                 {/* Driver Name */}
-                <Field.Root p={0}>
-                    <Field.Label
-                        label="Driver Name"
-                        color="white"
-                        mb={0}
-                        required
-                    >
-                        Full Name
+                <Field.Root p={0} required>
+                    <Field.Label label="Driver Name" color="white" mb={0}>
+                        Full Name <Field.RequiredIndicator />
                     </Field.Label>
                     <Input
                         name="name"
@@ -140,33 +137,26 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                 </Field.Root>
 
                 {/* Phone Number */}
-                <Field.Root p={0}>
-                    <Field.Label
-                        label="Phone Number"
-                        color="white"
-                        mb={0}
-                        required
-                    >
-                        Phone Number
+                <Field.Root p={0} required>
+                    <Field.Label label="Phone Number" color="white" mb={0}>
+                        Phone Number <Field.RequiredIndicator />
                     </Field.Label>
-                    <Input
-                        name="phone"
-                        type="tel"
-                        value={newDriverData.phone || ""}
-                        onChange={handleInputChange}
-                        placeholder="Enter phone number"
-                    />
+                    <InputGroup startAddon="+65">
+                        <Input
+                            name="phone"
+                            type="tel"
+                            value={newDriverData.phone || ""}
+                            onChange={handleInputChange}
+                            placeholder="9999-9999"
+                            ref={withMask("9999-9999")}
+                        />
+                    </InputGroup>
                 </Field.Root>
 
                 {/* Email */}
-                <Field.Root p={0}>
-                    <Field.Label
-                        label="Email Address"
-                        color="white"
-                        mb={0}
-                        required
-                    >
-                        Email Address
+                <Field.Root p={0} required>
+                    <Field.Label label="Email Address" color="white" mb={0}>
+                        Email Address <Field.RequiredIndicator />
                     </Field.Label>
                     <Input
                         name="email"
@@ -175,10 +165,11 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                         onChange={handleInputChange}
                         placeholder="Enter email address"
                     />
+                    <Field.ErrorText>This field is required</Field.ErrorText>
                 </Field.Root>
 
                 {/* Vehicle Details Section */}
-                <Stack gap={2}>
+                <Stack gap={3}>
                     <Text
                         fontSize="lg"
                         fontWeight="semibold"
@@ -189,14 +180,9 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                     </Text>
 
                     {/* Plate Number */}
-                    <Field.Root p={0}>
-                        <Field.Label
-                            label="Plate Number"
-                            color="white"
-                            mb={0}
-                            required
-                        >
-                            Plate Number
+                    <Field.Root p={0} required>
+                        <Field.Label label="Plate Number" color="white" mb={0}>
+                            Plate Number <Field.RequiredIndicator />
                         </Field.Label>
                         <Input
                             name="vehicle.plateNumber"
@@ -207,14 +193,9 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                     </Field.Root>
 
                     {/* Vehicle Model */}
-                    <Field.Root p={0}>
-                        <Field.Label
-                            label="Vehicle Model"
-                            color="white"
-                            mb={0}
-                            required
-                        >
-                            Vehicle Model
+                    <Field.Root p={0} required>
+                        <Field.Label label="Vehicle Model" color="white" mb={0}>
+                            Vehicle Model <Field.RequiredIndicator />
                         </Field.Label>
                         <Input
                             name="vehicle.model"
@@ -225,14 +206,9 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                     </Field.Root>
 
                     {/* Vehicle Type */}
-                    <Field.Root>
-                        <Field.Label
-                            label="Vehicle Type"
-                            color="white"
-                            mb={0}
-                            required
-                        >
-                            Vehicle Type
+                    <Field.Root required>
+                        <Field.Label label="Vehicle Type" color="white" mb={0}>
+                            Vehicle Type <Field.RequiredIndicator />
                         </Field.Label>
                         <Select.Root
                             collection={vehicleTypes}
@@ -291,11 +267,11 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                 </Button>
 
                 {/* Error message */}
-                {/* {submitError && (
-                        <Text color="red.500" textAlign="center">
-                            {submitError}
-                        </Text>
-                    )} */}
+                {submitError && (
+                    <Text color="red.500" textAlign="center">
+                        {submitError}
+                    </Text>
+                )}
             </VStack>
         </form>
     );

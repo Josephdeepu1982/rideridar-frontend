@@ -11,11 +11,13 @@ import {
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./components/LandingPage";
+
 import TabBookingForm from "./components/booking/TabBookingForm";
-import Confirmation from "./components/booking/Confirmation";
 import CarSelection from "./components/booking/CarSelection";
 import BookingDetails from "./components/booking/BookingDetails";
 import BookingReview from "./components/booking/BookingReview";
+import Confirmation from "./components/booking/Confirmation";
+import BookingStatus from "./components/booking/BookingStatus";
 
 import Dashboard from "./components/dashboard/Dashboard";
 import Overview from "./components/dashboard/Overview";
@@ -53,7 +55,8 @@ const App = () => {
                     />
                     <Route path="/booking-review" element={<BookingReview />} />
                     <Route path="/confirmation" element={<Confirmation />} />
-                    
+                    <Route path="/booking-status" element={<BookingStatus />} />
+
                     {/* Dashboard routes with nested structure */}
                     <Route path="/dashboard" element={<Dashboard />}>
                         {/* Default dashboard route - redirects to overview */}

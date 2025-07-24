@@ -1,0 +1,81 @@
+/* BookingStatus.css */
+
+.booking-status-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* full viewport height */
+  padding-top: 6rem; /* optional: offset for fixed header */
+  box-sizing: border-box;
+}
+
+.booking-status-container {
+  max-width: 600px;
+  margin: 6rem auto 4rem;
+  padding: 2rem;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+}
+
+.booking-status-container h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.booking-status-container input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  transition: border 0.3s ease;
+}
+
+.booking-status-container input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.booking-status-container button {
+  width: 100%;
+  padding: 0.75rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.booking-status-container button:hover {
+  background-color: var(--secondary-color);
+}
+
+.status-details {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #e8f5e9;
+  border-left: 5px solid #34a853;
+  border-radius: 6px;
+  color: #2e7d32;
+}
+
+.status-details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #d32f2f;
+  font-weight: bold;
+  text-align: center;
+}

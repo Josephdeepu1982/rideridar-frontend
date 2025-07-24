@@ -20,4 +20,23 @@ const getDrivers = async () => {
     }
 };
 
-export { getDrivers };
+const addDriver = async (driverData) => {
+    try {
+        const res = await fetch(`${BASE_URL}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(driverData),
+        });
+        const data = await res.json();
+        if (data) {
+            return { ok: res.ok, data }; // returns the newly created driver and the response
+        }
+    } catch (err) {
+        console.log(err);
+        throw new Error("Failed to add driver");
+    }
+};
+
+export { getDrivers, addDriver };

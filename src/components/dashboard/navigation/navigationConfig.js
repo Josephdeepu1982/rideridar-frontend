@@ -14,6 +14,6 @@ export const navigationItems = [
 ];
 
 export const userProfileItems = [
-    { name: "Profile", href: "" },
-    { name: "Settings", href: "" },
+    { name: "Profile", href: "/dashboard/my-account" },
+    // { name: "Settings", href: "" },
 ];

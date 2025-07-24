@@ -76,11 +76,7 @@ const UserProfileMenu = () => {
                                     asChild
                                     value={link.name}
                                 >
-                                    <a
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
+                                    <a href={link.href} rel="noreferrer">
                                         {link.name}
                                     </a>
                                 </Menu.Item>

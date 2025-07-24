@@ -10,10 +10,22 @@ import {
 } from "@chakra-ui/react";
 
 import { FaRegEnvelope, FaPhoneAlt, FaCar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const DriverCard = ({ data }) => {
+    const navigate = useNavigate();
+
     const addSpacingPhone = (phone) => {
         return phone.replace(/(\d{4})(\d{4})/, "$1 $2");
+    };
+
+    const handleViewDetails = () => {
+        const dataId = data._id;
+
+        if (dataId) {
+            // Navigate to the driver detail page
+            navigate(`/dashboard/drivers/${dataId}`);
+        }
     };
 
     return (
@@ -105,7 +117,12 @@ const DriverCard = ({ data }) => {
                 </Grid>
             </Card.Body>
             <Card.Footer flexDirection="column">
-                <Button variant="outline" m={0} w="100%">
+                <Button
+                    variant="outline"
+                    m={0}
+                    w="100%"
+                    onClick={handleViewDetails}
+                >
                     View Details
                 </Button>
             </Card.Footer>

@@ -22,6 +22,7 @@ import Overview from "./components/dashboard/Overview";
 import Bookings from "./components/dashboard/Bookings";
 import Drivers from "./components/dashboard/Drivers";
 import Account from "./components/dashboard/Account";
+import DriverDetail from "./components/dashboard/driver/DriverDetail";
 
 const Layout = ({ children }) => {
     const location = useLocation();
@@ -42,44 +43,34 @@ const App = () => {
     return (
         <BrowserRouter>
             <Layout>
-                <div>
-                    <Routes>
-                        <Route path="/" element={<LandingPage />} />
-                        <Route path="/booking" element={<TabBookingForm />} />
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/booking" element={<TabBookingForm />} />
+                    <Route path="/car-selection" element={<CarSelection />} />
+                    <Route
+                        path="/booking-details"
+                        element={<BookingDetails />}
+                    />
+                    <Route path="/booking-review" element={<BookingReview />} />
+                    <Route path="/confirmation" element={<Confirmation />} />
+                    
+                    {/* Dashboard routes with nested structure */}
+                    <Route path="/dashboard" element={<Dashboard />}>
+                        {/* Default dashboard route - redirects to overview */}
                         <Route
-                            path="/car-selection"
-                            element={<CarSelection />}
+                            index
+                            element={<Navigate to="overview" replace />}
                         />
-                        <Route
-                            path="/booking-details"
-                            element={<BookingDetails />}
-                        />
-                        <Route
-                            path="/booking-review"
-                            element={<BookingReview />}
-                        />
-                        <Route
-                            path="/confirmation"
-                            element={<Confirmation />}
-                        />
-                        {/* Dashboard routes with nested structure */}
-                        <Route path="/dashboard" element={<Dashboard />}>
-                            {/* Default dashboard route - redirects to overview */}
-                            <Route
-                                index
-                                element={<Navigate to="overview" replace />}
-                            />
-                            <Route path="overview" element={<Overview />} />
-                            <Route path="bookings" element={<Bookings />} />
-                            <Route path="drivers" element={<Drivers />} />
-                            <Route path="my-account" element={<Account />} />
-                        </Route>
-                    </Routes>
-                </div>
+                        <Route path="overview" element={<Overview />} />
+                        <Route path="bookings" element={<Bookings />} />
+                        <Route path="drivers" element={<Drivers />} />
+                        <Route path="drivers/:id" element={<DriverDetail />} />
+                        <Route path="my-account" element={<Account />} />
+                    </Route>
+                </Routes>
             </Layout>
         </BrowserRouter>
     );
-
 };
 
 export default App;

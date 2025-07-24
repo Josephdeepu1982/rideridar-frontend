@@ -12,6 +12,8 @@ import {
 import { withMask } from "use-mask-input";
 
 import { vehicleTypes } from "./driverConfig";
+import { passwordGenerator } from "../utils/passwordGenerator";
+import { addDriver } from "@/services/driverService";
 
 const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
     // add loading and error states
@@ -21,6 +23,13 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
+        let cleanedValue = value;
+
+        if (name === "phone") {
+            // remove all non-numeric characters (hyphens, spaces, etc.)
+            cleanedValue = value.replace(/\D/g, "");
+        }
+
         // handle nested vehicle object
         if (name.includes("vehicle.")) {
             const vehicleProperty = name.split(".")[1];
@@ -28,13 +37,13 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                 ...newDriverData,
                 vehicle: {
                     ...newDriverData.vehicle,
-                    [vehicleProperty]: value,
+                    [vehicleProperty]: cleanedValue,
                 },
             });
         } else {
             setNewDriverData({
                 ...newDriverData,
-                [name]: value,
+                [name]: cleanedValue,
             });
         }
 
@@ -63,7 +72,7 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
             return;
         }
 
-        // Email validation
+        // email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(newDriverData.email)) {
             setSubmitError("Please enter a valid email address");
@@ -74,16 +83,11 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
         setIsSubmitting(true);
 
         try {
-            // API call to create new driver
-            const response = await fetch("/api/drivers", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newDriverData),
+            const response = await addDriver({
+                ...newDriverData,
+                password: passwordGenerator(),
+                jwt: "wkkw",
             });
-
-            const result = await response.json();
 
             if (response.ok) {
                 // handle successful driver creation
@@ -106,9 +110,7 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                 alert("Driver added successfully!");
             } else {
                 // set the error message received from server
-                setSubmitError(
-                    result.error || result.message || "Failed to create driver"
-                );
+                setSubmitError("Failed to create driver");
             }
         } catch (err) {
             // handle unexpected errors

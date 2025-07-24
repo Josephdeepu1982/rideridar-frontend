@@ -39,4 +39,4 @@ const addDriver = async (driverData) => {
     }
 };
 
-export { getDrivers };
+export { getDrivers, addDriver };

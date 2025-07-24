@@ -11,7 +11,7 @@ const BookingList = () => {
         const fetchBookings = async () => {
             try {
                 const bookings = await getBookings();
-                console.log("Bookings fetched:", bookings);
+                // console.log("Bookings fetched:", bookings);
                 setBookingsData(bookings);
             } catch (error) {
                 console.error("Error fetching bookings:", error);

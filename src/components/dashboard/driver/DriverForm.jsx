@@ -7,7 +7,6 @@ import {
     Field,
     Select,
     VStack,
-    Portal,
     InputGroup,
 } from "@chakra-ui/react";
 import { withMask } from "use-mask-input";
@@ -212,6 +211,7 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                         </Field.Label>
                         <Select.Root
                             collection={vehicleTypes}
+                            m={0}
                             value={[newDriverData.vehicle?.vehicleType || ""]}
                             onValueChange={(details) => {
                                 const event = {
@@ -235,21 +235,19 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                                     <Select.Indicator />
                                 </Select.IndicatorGroup>
                             </Select.Control>
-                            <Portal>
-                                <Select.Positioner>
-                                    <Select.Content>
-                                        {vehicleTypes.items.map((type) => (
-                                            <Select.Item
-                                                item={type}
-                                                key={type.value}
-                                            >
-                                                {type.label}
-                                                <Select.ItemIndicator />
-                                            </Select.Item>
-                                        ))}
-                                    </Select.Content>
-                                </Select.Positioner>
-                            </Portal>
+                            <Select.Positioner>
+                                <Select.Content>
+                                    {vehicleTypes.items.map((type) => (
+                                        <Select.Item
+                                            item={type}
+                                            key={type.value}
+                                        >
+                                            {type.label}
+                                            <Select.ItemIndicator />
+                                        </Select.Item>
+                                    ))}
+                                </Select.Content>
+                            </Select.Positioner>
                         </Select.Root>
                     </Field.Root>
                 </Stack>

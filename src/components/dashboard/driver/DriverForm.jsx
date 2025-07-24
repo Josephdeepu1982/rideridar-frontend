@@ -91,9 +91,9 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
 
             if (response.ok) {
                 // handle successful driver creation
-                console.log("Driver created successfully:", result);
+                console.log("Driver created successfully.");
 
-                // Reset form after successful submission
+                // reset form after successful submission
                 setNewDriverData({
                     name: "",
                     phone: "",
@@ -105,7 +105,7 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                     },
                 });
 
-                // Close modal and show success message
+                // close modal and show success message
                 if (onSuccess) onSuccess();
                 alert("Driver added successfully!");
             } else {

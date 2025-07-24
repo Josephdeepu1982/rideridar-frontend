@@ -31,7 +31,7 @@ const addDriver = async (driverData) => {
         });
         const data = await res.json();
         if (data) {
-            return data; // returns the newly created driver
+            return { ok: res.ok, data }; // returns the newly created driver and the response
         }
     } catch (err) {
         console.log(err);

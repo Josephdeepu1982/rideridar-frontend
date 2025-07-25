@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import {
     Avatar,
     Box,
@@ -10,9 +13,27 @@ import {
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { FaAngleDown } from "react-icons/fa";
+
 import { userProfileItems } from "./navigationConfig";
+import { UserContext } from "@/contexts/UserContext";
+import { signOut } from "@/services/authService";
 
 const UserProfileMenu = () => {
+    const { user, setUser } = useContext(UserContext);
+
+    const handleSignout = async () => {
+        try {
+            const signedOutUser = await signOut(user);
+
+            if (signedOutUser) {
+                localStorage.removeItem("token");
+                setUser(null);
+            }
+        } catch (err) {
+            throw new Error("An unexpected error occurred");
+        }
+    };
+
     return (
         <Menu.Root>
             <Menu.Trigger asChild>
@@ -84,7 +105,9 @@ const UserProfileMenu = () => {
                         </Menu.ItemGroup>
                         <Menu.Separator />
                         <Menu.ItemGroup>
-                            <Menu.Item value="signout">Sign Out</Menu.Item>
+                            <Menu.Item value="signout">
+                                <Link onClick={handleSignout}>Sign Out</Link>
+                            </Menu.Item>
                         </Menu.ItemGroup>
                     </Menu.Content>
                 </Menu.Positioner>

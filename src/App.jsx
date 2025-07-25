@@ -25,6 +25,7 @@ import Bookings from "./components/dashboard/Bookings";
 import Drivers from "./components/dashboard/Drivers";
 import Account from "./components/dashboard/Account";
 import DriverDetail from "./components/dashboard/driver/DriverDetail";
+import BookingDetail from "./components/dashboard/booking/BookingDetail";
 import LoginForm from "./components/dashboard/login/LoginForm";
 
 const Layout = ({ children }) => {
@@ -68,6 +69,10 @@ const App = () => {
                         <Route path="login" element={<LoginForm />} />
                         <Route path="overview" element={<Overview />} />
                         <Route path="bookings" element={<Bookings />} />
+                        <Route
+                            path="bookings/:id"
+                            element={<BookingDetail />}
+                        />
                         <Route path="drivers" element={<Drivers />} />
                         <Route path="drivers/:id" element={<DriverDetail />} />
                         <Route path="my-account" element={<Account />} />

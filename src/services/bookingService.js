@@ -22,4 +22,26 @@ const getBookings = async () => {
     }
 };
 
-export { getBookings };
+const getBookingById = async (id) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!res.ok) {
+            throw new Error("Failed to fetch booking");
+        }
+
+        const data = await res.json();
+        console.log("Booking data:", data);
+        return data; // returns the booking object
+    } catch (err) {
+        // console.log(err);
+        throw new Error("Failed to fetch booking by ID");
+    }
+};
+
+export { getBookings, getBookingById };

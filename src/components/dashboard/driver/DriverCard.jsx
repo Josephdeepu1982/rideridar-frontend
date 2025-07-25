@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
     Button,
     Card,
@@ -11,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import { FaRegEnvelope, FaPhoneAlt, FaCar } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const DriverCard = ({ data }) => {
     const navigate = useNavigate();

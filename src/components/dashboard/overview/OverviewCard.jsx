@@ -1,8 +1,6 @@
-import { Box, Heading } from "@chakra-ui/react";
 
 const OverviewCard = () => {
-    return (
-    );
+    return ();
 };
 
 export default OverviewCard;

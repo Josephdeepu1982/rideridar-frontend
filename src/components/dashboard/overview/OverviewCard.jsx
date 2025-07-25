@@ -1,6 +1,5 @@
-
 const OverviewCard = () => {
-    return ();
+    return;
 };
 
 export default OverviewCard;

@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, VStack, Text, Input, Field } from "@chakra-ui/react";
-import {
-    PasswordInput,
-    PasswordStrengthMeter,
-} from "@/components/ui/password-input";
 
+import { Button, VStack, Text, Input, Field, Select } from "@chakra-ui/react";
+import { PasswordInput } from "@/components/ui/password-input";
+
+import { userTypes } from "./loginConfig";
 import { UserContext } from "@/contexts/UserContext";
+import { signIn } from "@/services/authService";
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -15,6 +15,7 @@ const LoginForm = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        userType: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState(null);
@@ -31,53 +32,49 @@ const LoginForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // if (isSubmitting) return;
+        if (isSubmitting) return;
 
-        // setSubmitError(null);
+        setSubmitError(null);
 
-        // if (!loginData.email?.trim() || !loginData.password?.trim()) {
-        //     setSubmitError("Please fill in all required fields");
-        //     return;
-        // }
+        if (!formData.email?.trim() || !formData.password?.trim()) {
+            setSubmitError("Please fill in all required fields");
+            return;
+        }
 
-        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        // if (!emailRegex.test(loginData.email)) {
-        //     setSubmitError("Please enter a valid email address");
-        //     return;
-        // }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setSubmitError("Please enter a valid email address");
+            return;
+        }
 
-        // setIsSubmitting(true);
+        setIsSubmitting(true);
 
-        // try {
-        //     const response = await addDriver({
-        //         ...loginData,
-        //         // password: passwordGenerator(), // use this if you auto-gen passwords
-        //         jwt: "wkkw",
-        //     });
+        try {
+            const signedInUser = await signIn(formData);
 
-        //     if (response.ok) {
-        //         console.log("Driver created successfully.");
+            if (signedInUser) {
+                setUser(signedInUser);
+                navigate("/dashboard/overview");
 
-        //         setLoginData({
-        //             email: "",
-        //             password: "",
-        //         });
-
-        //         if (onSuccess) onSuccess();
-        //         alert("Driver added successfully!");
-        //     } else {
-        //         setSubmitError("Failed to create driver");
-        //     }
-        // } catch (err) {
-        //     setSubmitError(err.message || "An unexpected error occurred");
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
+                setFormData({
+                    email: "",
+                    password: "",
+                    userType: "",
+                });
+            } else {
+                setSubmitError("Failed to sign in.");
+            }
+        } catch (err) {
+            setSubmitError(err.message || "An unexpected error occurred");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <VStack p={0} align="stretch" gap={3}>
+                {/* Email address */}
                 <Field.Root p={0} required>
                     <Field.Label color="white" mb={0}>
                         Email Address <Field.RequiredIndicator />
@@ -91,6 +88,7 @@ const LoginForm = () => {
                     />
                 </Field.Root>
 
+                {/* Password */}
                 <Field.Root p={0} required>
                     <Field.Label color="white" mb={0}>
                         Password <Field.RequiredIndicator />
@@ -101,6 +99,51 @@ const LoginForm = () => {
                         onChange={handleInputChange}
                         placeholder="Enter password"
                     />
+                </Field.Root>
+
+                {/* User Type */}
+                <Field.Root required>
+                    <Field.Label label="User Type" color="white" mb={0}>
+                        User Type <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Select.Root
+                        collection={userTypes}
+                        m={0}
+                        value={[formData.userType || ""]}
+                        onValueChange={(details) => {
+                            const event = {
+                                target: {
+                                    name: "userType",
+                                    value: details.value[0] || "",
+                                },
+                            };
+                            handleInputChange(event);
+                        }}
+                    >
+                        <Select.HiddenSelect />
+                        <Select.Control>
+                            <Select.Trigger bg="whiteAlpha.100" color="white">
+                                <Select.ValueText placeholder="Select user type" />
+                            </Select.Trigger>
+                            <Select.IndicatorGroup>
+                                <Select.Indicator />
+                            </Select.IndicatorGroup>
+                        </Select.Control>
+                        <Select.Positioner>
+                            <Select.Content>
+                                {userTypes.items.map((type) => (
+                                    <Select.Item
+                                        item={type}
+                                        key={type.value}
+                                        color={"white"}
+                                    >
+                                        {type.label}
+                                        <Select.ItemIndicator />
+                                    </Select.Item>
+                                ))}
+                            </Select.Content>
+                        </Select.Positioner>
+                    </Select.Root>
                 </Field.Root>
 
                 <Button

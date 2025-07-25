@@ -42,7 +42,7 @@ const Login = () => {
                 placeSelf={"center"}
                 justifyContent={"center"}
             >
-                <Heading as="h1" color={"palegoldenrod"} mb={5}>
+                <Heading as="h1" color={"palegoldenrod"} mb={"50px"}>
                     Welcome to Ridevanta Dashboard
                 </Heading>
                 <LoginForm />

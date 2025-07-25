@@ -7,7 +7,6 @@ import Navigation from "./Navigation";
 import Login from "./Login";
 
 const Dashboard = () => {
-    const login = true;
     const { user } = useContext(UserContext);
 
     return (

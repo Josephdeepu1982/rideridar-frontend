@@ -98,7 +98,7 @@ const DriverForm = ({ newDriverData, setNewDriverData }) => {
 
             if (response.ok) {
                 // handle successful driver creation
-                console.log("Driver created successfully.");
+                // console.log("Driver created successfully.");
 
                 // reset form after successful submission
                 setNewDriverData({

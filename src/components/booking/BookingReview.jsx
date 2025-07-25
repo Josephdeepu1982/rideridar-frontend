@@ -35,7 +35,7 @@ const BookingReview = () => {
         confirmationPin: pin,
       };
       const savedBooking = await createBooking(finalBooking);
-      console.log("Booking created!", createBooking);
+      // console.log("Booking created!", createBooking);
       navigate("/confirmation", { state: savedBooking });
     } catch (error) {
       alert("There was an error saving your booking. Please try again");

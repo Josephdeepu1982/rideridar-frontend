@@ -16,7 +16,7 @@ const DriverList = () => {
                 // console.log("Drivers fetched:", drivers);
                 setDriversData(drivers);
             } catch (error) {
-                console.error("Error fetching drivers:", error);
+                // console.error("Error fetching drivers:", error);
                 setErrorMessage(
                     "Failed to fetch drivers. Please try again later."
                 );

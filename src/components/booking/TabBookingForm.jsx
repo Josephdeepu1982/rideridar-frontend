@@ -66,7 +66,7 @@ const TabBookingForm = () => {
         ridePurpose: ridePurpose,
       },
     });
-    console.log(`Form submitted ${activeTab}:`, formDataToSend);
+    // console.log(`Form submitted ${activeTab}:`, formDataToSend);
   };
 
   return (

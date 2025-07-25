@@ -9,8 +9,8 @@ const BookingDetails = () => {
     const bookingData = location.state || {}; //Retrives data passed from the previous page (ride type, car selection, booking info)
     const isAirportTransfer = bookingData.tripData.ridePurpose === "airport"; //Determines whether the booking is for an airport transfer (ridePurpose is defined in TabBookingForm) and conditoanlly show airport specific fields (Flight number, terminal, gate).
 
-    console.log("Booking Data:", bookingData);
-    console.log("Ride Purpose:", bookingData.ridePurpose);
+    // console.log("Booking Data:", bookingData);
+    // console.log("Ride Purpose:", bookingData.ridePurpose);
 
     //modal is a type of popup window that appears on top of main content
     //when user clicks the link the showTerms Modal is 'true' and the modal is rendered.
@@ -92,7 +92,7 @@ const BookingDetails = () => {
                 isGatePickupRequested: formData.gatePickup,
             };
         }
-        console.log("Final booking submitted:", finalBooking);
+        // console.log("Final booking submitted:", finalBooking);
         navigate("/booking-review", {
             state: finalBooking, //passes all booking data to final page
         });

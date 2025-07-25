@@ -7,6 +7,7 @@ import {
     Text,
     Avatar,
     Grid,
+    Badge,
 } from "@chakra-ui/react";
 
 import { FaRegEnvelope, FaPhoneAlt, FaCar } from "react-icons/fa";
@@ -15,12 +16,25 @@ import { useNavigate } from "react-router-dom";
 const DriverCard = ({ data }) => {
     const navigate = useNavigate();
 
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "active":
+                return "green";
+            case "inactive":
+                return "red";
+            case "suspended":
+                return "gray";
+            default:
+                return "green";
+        }
+    };
+
     const addSpacingPhone = (phone) => {
         return phone.replace(/(\d{4})(\d{4})/, "$1 $2");
     };
 
     const handleViewDetails = () => {
-        const dataId = data._id;
+        const dataId = data.id;
 
         if (dataId) {
             // Navigate to the driver detail page
@@ -31,24 +45,40 @@ const DriverCard = ({ data }) => {
     return (
         <Card.Root variant="outline">
             <Card.Header>
-                <HStack gapY={3}>
-                    <Avatar.Root>
-                        <Avatar.Image src="https://picsum.photos/200/300" />
-                        <Avatar.Fallback name={data.name} />
-                    </Avatar.Root>
-                    <Stack gap="0">
-                        <Card.Title
-                            fontWeight="semibold"
-                            as="h3"
-                            color={"palegoldenrod"}
-                            mb={0}
-                        >
-                            {data.name}
-                        </Card.Title>
-                        <Text color="fg.muted" textStyle="sm">
-                            115 Bookings
-                        </Text>
-                    </Stack>
+                <HStack justifyContent={"space-between"}>
+                    <HStack gapY={3}>
+                        <Avatar.Root size={"2xl"}>
+                            <Avatar.Image src="https://picsum.photos/200/300" />
+                            <Avatar.Fallback name={data.name} />
+                        </Avatar.Root>
+                        <Stack gap="0">
+                            <Card.Title
+                                fontWeight="semibold"
+                                as="h3"
+                                color={"palegoldenrod"}
+                                mb={0}
+                            >
+                                {data.name}
+                            </Card.Title>
+                            <Text color="fg.muted" textStyle="sm">
+                                115 Bookings
+                            </Text>
+                            <Badge
+                                variant="outline"
+                                my={1}
+                                justifyContent={"center"}
+                            >
+                                {data.id}
+                            </Badge>
+                        </Stack>
+                    </HStack>
+                    <Badge
+                        colorPalette={getStatusColor(data.status)}
+                        textTransform={"uppercase"}
+                        size={"lg"}
+                    >
+                        {data.status}
+                    </Badge>
                 </HStack>
             </Card.Header>
             <Card.Body textStyle="sm">

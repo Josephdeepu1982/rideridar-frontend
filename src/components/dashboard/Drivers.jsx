@@ -1,7 +1,18 @@
 import { useState } from "react";
-import { Heading, Button, Dialog, Portal, CloseButton } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
+
+import {
+    Heading,
+    Button,
+    Dialog,
+    Portal,
+    CloseButton,
+    HStack,
+} from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
+
 import DriverList from "./driver/DriverList";
-import DriverForm from "./driver/DriverForm"; 
+import DriverForm from "./driver/DriverForm";
 
 const Drivers = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,13 +58,16 @@ const Drivers = () => {
                 onOpenChange={(e) => setIsModalOpen(e.open)}
             >
                 <Dialog.Trigger asChild>
-                    <Button
-                        onClick={handleAddDriverClick}
-                        colorScheme="blue"
-                        mb={4}
-                    >
-                        Add Driver
-                    </Button>
+                    <HStack>
+                        <Button
+                            onClick={handleAddDriverClick}
+                            mx={0}
+                            display={"flex"}
+                            gap={4}
+                        >
+                            <FaPlus /> Add Driver
+                        </Button>
+                    </HStack>
                 </Dialog.Trigger>
 
                 <Portal>
@@ -61,7 +75,9 @@ const Drivers = () => {
                     <Dialog.Positioner>
                         <Dialog.Content maxW="600px" color="white">
                             <Dialog.Header>
-                                <Dialog.Title as="h3">Add New Driver</Dialog.Title>
+                                <Dialog.Title as="h3">
+                                    Add New Driver
+                                </Dialog.Title>
                             </Dialog.Header>
 
                             <Dialog.Body>
@@ -81,6 +97,8 @@ const Drivers = () => {
             </Dialog.Root>
 
             <DriverList />
+
+            <Outlet />
         </>
     );
 };

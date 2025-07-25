@@ -15,7 +15,7 @@ const getDrivers = async () => {
             return data; // returns the drivers array
         }
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         throw new Error("Failed to fetch drivers");
     }
 };
@@ -34,9 +34,31 @@ const addDriver = async (driverData) => {
             return { ok: res.ok, data }; // returns the newly created driver and the response
         }
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         throw new Error("Failed to add driver");
     }
 };
 
-export { getDrivers, addDriver };
+const getDriverById = async (id) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!res.ok) {
+            throw new Error("Failed to fetch driver");
+        }
+
+        const data = await res.json();
+        console.log("Driver data:", data);
+        return data; // returns the driver object
+    } catch (err) {
+        // console.log(err);
+        throw new Error("Failed to fetch driver by ID");
+    }
+};
+
+export { getDrivers, addDriver, getDriverById };

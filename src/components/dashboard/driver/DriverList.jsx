@@ -13,7 +13,7 @@ const DriverList = () => {
         const fetchDrivers = async () => {
             try {
                 const drivers = await getDrivers();
-                console.log("Drivers fetched:", drivers);
+                // console.log("Drivers fetched:", drivers);
                 setDriversData(drivers);
             } catch (error) {
                 console.error("Error fetching drivers:", error);

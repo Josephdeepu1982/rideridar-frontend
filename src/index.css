@@ -2,21 +2,21 @@
    Global Theme Variables
 ================================= */
 :root {
-  --primary-color: #1e3a8a; /* Navy */
-  --secondary-color: #3b82f6; /* Blue */
-  --accent-color: #fbbf24; /* Gold / Amber */
-  --background-color: #ffffff; /* Light background */
-  --text-color: #111827; /* Dark gray */
-  --muted-text: #6b7280; /* Gray */
-  --border-color: #e5e7eb; /* Light gray */
-  --error-color: #dc2626; /* Red */
-  --success-color: #16a34a; /* Green */
-  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --border-radius: 6px;
-  --transition-speed: 0.3s;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+    --primary-color: #1e3a8a; /* Navy */
+    --secondary-color: #3b82f6; /* Blue */
+    --accent-color: #fbbf24; /* Gold / Amber */
+    --background-color: #ffffff; /* Light background */
+    --text-color: #111827; /* Dark gray */
+    --muted-text: #6b7280; /* Gray */
+    --border-color: #e5e7eb; /* Light gray */
+    --error-color: #dc2626; /* Red */
+    --success-color: #16a34a; /* Green */
+    --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --border-radius: 6px;
+    --transition-speed: 0.3s;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* ===============================
@@ -29,12 +29,12 @@
 } */
 
 body {
-  font-family: var(--font-family);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===============================
@@ -46,28 +46,28 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--text-color);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
+    color: var(--text-color);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
 }
 
 h1 {
-  font-size: 2.25rem;
+    font-size: 2.25rem;
 }
 h2 {
-  font-size: 1.875rem;
+    font-size: 1.875rem;
 }
 h3 {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 h4 {
-  font-size: 1.25rem;
+    font-size: 1.25rem;
 }
 h5 {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 h6 {
-  font-size: 0.875rem;
+    font-size: 0.875rem;
 }
 
 /* p {
@@ -80,13 +80,13 @@ h6 {
    Links
 ================================= */
 a {
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: color var(--transition-speed);
+    /* color: var(--primary-color); */
+    text-decoration: none;
+    transition: color var(--transition-speed);
 }
 
 a:hover {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 /* ===============================
@@ -94,25 +94,25 @@ a:hover {
 ================================= */
 button,
 .btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--border-radius);
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color var(--transition-speed), transform 0.2s;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.2s;
 }
 
 button:hover,
 .btn:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 /* ===============================
@@ -121,105 +121,105 @@ button:disabled {
 input,
 select,
 textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  font-family: inherit;
-  background-color: #f9fafb;
-  transition: border var(--transition-speed);
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #f9fafb;
+    transition: border var(--transition-speed);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: #fff;
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #fff;
 }
 
 label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-  color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    color: var(--text-color);
 }
 
 /* ===============================
    Utilities
 ================================= */
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 .mt-1 {
-  margin-top: 0.25rem;
+    margin-top: 0.25rem;
 }
 .mt-2 {
-  margin-top: 0.5rem;
+    margin-top: 0.5rem;
 }
 .mt-4 {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 .mb-2 {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .mb-4 {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .flex {
-  display: flex;
+    display: flex;
 }
 .flex-center {
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .shadow-sm {
-  box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm);
 }
 .shadow-md {
-  box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 .shadow-lg {
-  box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .rounded {
-  border-radius: var(--border-radius);
+    border-radius: var(--border-radius);
 }
 
 .bg-light {
-  background-color: var(--background-color);
+    background-color: var(--background-color);
 }
 .bg-dark {
-  background-color: var(--primary-color);
-  color: white;
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .text-light {
-  color: white;
+    color: white;
 }
 .text-dark {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 .hide-on-mobile {
-  display: none;
+    display: none;
 }
 @media (min-width: 768px) {
-  .hide-on-mobile {
-    display: block;
-  }
+    .hide-on-mobile {
+        display: block;
+    }
 }
 
 /* ===============================
@@ -228,11 +228,11 @@ label {
 input.error,
 select.error,
 textarea.error {
-  border-color: var(--error-color);
+    border-color: var(--error-color);
 }
 
 .error-text {
-  color: var(--error-color);
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }

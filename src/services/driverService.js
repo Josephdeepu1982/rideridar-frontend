@@ -43,7 +43,7 @@ const getDriverById = async (id) => {
 };
 
 const addDriver = async (driverData) => {
-    console.log("Driver data form: ", driverData);
+    // console.log("Driver data form: ", driverData);
     try {
         const res = await fetch(`${BASE_URL}/register`, {
             method: "POST",
@@ -62,4 +62,44 @@ const addDriver = async (driverData) => {
     }
 };
 
-export { getDrivers, getDriverById, addDriver };
+const getFilteredDrivers = async (type, status) => {
+    try {
+        // build query parameters array
+        const queryParams = [];
+
+        if (type) {
+            queryParams.push(`type=${encodeURIComponent(type)}`);
+        }
+
+        if (status) {
+            queryParams.push(`status=${encodeURIComponent(status)}`);
+        }
+
+        // construct URL - only add ? if there are query params
+        const queryString =
+            queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+        const url = `${BASE_URL}/filter${queryString}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!res.ok) {
+            throw new Error(
+                `Failed to fetch drivers: ${res.status} ${res.statusText}`
+            );
+        }
+
+        const data = await res.json();
+        // console.log("Filtered drivers data:", data);
+        return data;
+    } catch (err) {
+        console.error("Error fetching filtered drivers:", err);
+        throw new Error("Failed to fetch filtered drivers");
+    }
+};
+
+export { getDrivers, getDriverById, addDriver, getFilteredDrivers };

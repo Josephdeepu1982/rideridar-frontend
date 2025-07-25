@@ -36,7 +36,7 @@ const signOut = async (userData) => {
         const token = localStorage.getItem("token");
 
         const url = `${BASE_URL}/${userData.userType}/logout`;
-        const res = await fetch(`${url}`, {
+        const res = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

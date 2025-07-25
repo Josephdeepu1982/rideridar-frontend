@@ -13,6 +13,9 @@ import {
     Grid,
     GridItem,
     Badge,
+    Button,
+    Select,
+    createListCollection,
 } from "@chakra-ui/react";
 import {
     FaRegEnvelope,
@@ -24,18 +27,26 @@ import {
 } from "react-icons/fa";
 
 import { getBookingById } from "@/services/bookingService";
+import { getFilteredDrivers } from "@/services/driverService";
 
 const BookingDetail = () => {
     const { id } = useParams();
 
     const navigate = useNavigate();
     const [booking, setBooking] = useState({});
+    const [drivers, setDrivers] = useState([]);
+    const [selectedDriverId, setSelectedDriverId] = useState("");
+    const [isAssigning, setIsAssigning] = useState(false);
 
     useEffect(() => {
         const fetchBooking = async () => {
             try {
                 const data = await getBookingById(id);
                 setBooking(data);
+
+                if (!data.driver) {
+                    await fetchAvailableDrivers();
+                }
             } catch (error) {
                 console.error("Error fetching booking:", error);
             }
@@ -91,9 +102,41 @@ const BookingDetail = () => {
         return formatted;
     };
 
+    const handleAssignDriver = async () => {
+        if (!selectedDriverId) return;
+
+        try {
+            setIsAssigning(true);
+
+            const updatedBooking = await getBookingById(id);
+            setBooking(updatedBooking);
+            setSelectedDriverId("");
+        } catch (error) {
+            console.error("Error assigning driver:", error);
+        } finally {
+            setIsAssigning(false);
+        }
+    };
+
+    const fetchAvailableDrivers = async () => {
+        try {
+            const data = await getFilteredDrivers(null, "active");
+            setDrivers(data.data || data);
+        } catch (error) {
+            console.error("Error fetching drivers:", error);
+        }
+    };
+
     // check if guest data exists
     const hasGuestData =
         booking.guest && (booking.guest.name || booking.guest.phone);
+
+    const driversCollection = createListCollection({
+        items: drivers.map((driver) => ({
+            label: `${driver.name} - ${driver.vehicle?.vehicleType || "N/A"}`,
+            value: driver._id,
+        })),
+    });
 
     return (
         <>
@@ -178,6 +221,87 @@ const BookingDetail = () => {
                                     {booking.trip?.ridePurpose || "N/A"}
                                 </Text>
                             </HStack>
+                        </Stack>
+
+                        <Stack gap={0} mb={5}>
+                            <Text fontWeight="medium" color="gray.500">
+                                Driver:
+                            </Text>
+                            {booking.driver ? (
+                                <HStack>
+                                    <Icon as={FaUser} color="yellow" />
+                                    <Text>{booking.driver.name}</Text>
+                                </HStack>
+                            ) : (
+                                <Stack gap={3}>
+                                    <HStack>
+                                        <Icon as={FaUser} color="yellow" />
+                                        <Text>No driver assigned</Text>
+                                    </HStack>
+                                    <HStack gap={2}>
+                                        <Select.Root
+                                            textTransform={"capitalize"}
+                                            collection={driversCollection}
+                                            m={0}
+                                            value={[selectedDriverId]}
+                                            onValueChange={(details) =>
+                                                setSelectedDriverId(
+                                                    details.value[0]
+                                                )
+                                            }
+                                        >
+                                            <Select.HiddenSelect />
+                                            <Select.Control>
+                                                <Select.Trigger
+                                                    bg="whiteAlpha.100"
+                                                    color="white"
+                                                >
+                                                    <Select.ValueText
+                                                        textTransform={
+                                                            "capitalize"
+                                                        }
+                                                        placeholder="Select vehicle type"
+                                                    />
+                                                </Select.Trigger>
+                                                <Select.IndicatorGroup>
+                                                    <Select.Indicator />
+                                                </Select.IndicatorGroup>
+                                            </Select.Control>
+                                            <Select.Positioner>
+                                                <Select.Content>
+                                                    {driversCollection.items.map(
+                                                        (driver) => (
+                                                            <Select.Item
+                                                                item={driver}
+                                                                key={
+                                                                    driver.value
+                                                                }
+                                                                textTransform={
+                                                                    "capitalize"
+                                                                }
+                                                            >
+                                                                {driver.label}
+                                                                <Select.ItemIndicator />
+                                                            </Select.Item>
+                                                        )
+                                                    )}
+                                                </Select.Content>
+                                            </Select.Positioner>
+                                        </Select.Root>
+                                        <Button
+                                            size="sm"
+                                            colorPalette="yellow"
+                                            onClick={handleAssignDriver}
+                                            disabled={
+                                                !selectedDriverId || isAssigning
+                                            }
+                                            loading={isAssigning}
+                                        >
+                                            Assign
+                                        </Button>
+                                    </HStack>
+                                </Stack>
+                            )}
                         </Stack>
 
                         {booking.vehicle && (

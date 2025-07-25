@@ -31,21 +31,6 @@ const Drivers = () => {
         setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        // Reset form data when closing modal
-        setNewDriverData({
-            name: "",
-            phone: "",
-            email: "",
-            vehicle: {
-                plateNumber: "",
-                model: "",
-                vehicleType: "sedan",
-            },
-        });
-    };
-
     return (
         <>
             <Heading as="h1" textAlign="left" color="white" mb={5}>
@@ -61,7 +46,7 @@ const Drivers = () => {
                     <HStack>
                         <Button
                             onClick={handleAddDriverClick}
-                            mx={0}
+                            mb={5}
                             display={"flex"}
                             gap={4}
                         >
@@ -84,7 +69,6 @@ const Drivers = () => {
                                 <DriverForm
                                     newDriverData={newDriverData}
                                     setNewDriverData={setNewDriverData}
-                                    onSuccess={handleCloseModal}
                                 />
                             </Dialog.Body>
 

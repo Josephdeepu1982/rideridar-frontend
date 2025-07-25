@@ -26,7 +26,10 @@ import {
     FaCaretSquareRight,
 } from "react-icons/fa";
 
-import { getBookingById } from "@/services/bookingService";
+import {
+    assignDriverToBooking,
+    getBookingById,
+} from "@/services/bookingService";
 import { getFilteredDrivers } from "@/services/driverService";
 
 const BookingDetail = () => {
@@ -44,7 +47,7 @@ const BookingDetail = () => {
                 const data = await getBookingById(id);
                 setBooking(data);
 
-                if (!data.driver) {
+                if (!data.driverAssigned) {
                     await fetchAvailableDrivers();
                 }
             } catch (error) {
@@ -107,6 +110,11 @@ const BookingDetail = () => {
 
         try {
             setIsAssigning(true);
+
+            // console.log("Selected Driver ID:", selectedDriverId);
+            // console.log("Booking ID:", booking._id);
+
+            await assignDriverToBooking(booking._id, selectedDriverId);
 
             const updatedBooking = await getBookingById(id);
             setBooking(updatedBooking);
@@ -227,10 +235,10 @@ const BookingDetail = () => {
                             <Text fontWeight="medium" color="gray.500">
                                 Driver:
                             </Text>
-                            {booking.driver ? (
+                            {booking.driverAssigned ? (
                                 <HStack>
                                     <Icon as={FaUser} color="yellow" />
-                                    <Text>{booking.driver.name}</Text>
+                                    <Text>{booking.driverAssigned?.name}</Text>
                                 </HStack>
                             ) : (
                                 <Stack gap={3}>
@@ -260,7 +268,7 @@ const BookingDetail = () => {
                                                         textTransform={
                                                             "capitalize"
                                                         }
-                                                        placeholder="Select vehicle type"
+                                                        placeholder="Select a driver"
                                                     />
                                                 </Select.Trigger>
                                                 <Select.IndicatorGroup>

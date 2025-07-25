@@ -13,6 +13,7 @@ import {
     Image,
     Grid,
     GridItem,
+    Badge,
 } from "@chakra-ui/react";
 import {
     FaRegEnvelope,
@@ -30,6 +31,19 @@ const DriverDetail = () => {
 
     const navigate = useNavigate();
     const [driver, setDriver] = useState({});
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "active":
+                return "green";
+            case "inactive":
+                return "red";
+            case "suspended":
+                return "gray";
+            default:
+                return "green";
+        }
+    };
 
     useEffect(() => {
         const fetchDriver = async () => {
@@ -80,9 +94,18 @@ const DriverDetail = () => {
             </HStack>
 
             <Box p={5} border={"2px solid gray"}>
-                <Heading as="h3" color={"palegoldenrod"}>
-                    Driver Information
-                </Heading>
+                <HStack justify={"space-between"} mb={4}>
+                    <Heading as="h3" color="palegoldenrod" mb={0}>
+                        Driver Information
+                    </Heading>
+                    <Badge
+                        colorPalette={getStatusColor(driver.status)}
+                        textTransform={"uppercase"}
+                        size={"lg"}
+                    >
+                        {driver.status}
+                    </Badge>
+                </HStack>
                 <Separator border={"2px solid gray"} mb={5} />
 
                 {/* Driver Information */}

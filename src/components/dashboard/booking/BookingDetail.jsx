@@ -10,9 +10,9 @@ import {
     Icon,
     Separator,
     Link,
-    Image,
     Grid,
     GridItem,
+    Badge,
 } from "@chakra-ui/react";
 import {
     FaRegEnvelope,
@@ -51,10 +51,49 @@ const BookingDetail = () => {
 
     if (!booking) return <Text>Loading...</Text>;
 
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "pending":
+            case "inprogress":
+                return "yellow";
+            case "confirmed":
+                return "green";
+            case "cancelled":
+                return "red";
+            case "completed":
+                return "gray";
+            default:
+                return "yellow";
+        }
+    };
+
     const addSpacingPhone = (phone) => {
         if (!phone) return ""; // return empty string or placeholder
         return phone.toString().replace(/(\d{4})(\d{4})/, "$1 $2");
     };
+
+    const formatDateTime = (dateTime) => {
+        const date = new Date(dateTime);
+
+        const options = {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+            timeZone: "Asia/Singapore", // SGT timezone
+        };
+
+        const formatted = date.toLocaleString("en-GB", options);
+
+        return formatted;
+    };
+
+    // check if guest data exists
+    const hasGuestData =
+        booking.guest && (booking.guest.name || booking.guest.phone);
 
     return (
         <>
@@ -62,30 +101,31 @@ const BookingDetail = () => {
                 &larr; Back to Bookings{" "}
             </Link>
 
-            <HStack spacing={6} mb={6}>
-                <Image
-                    src="https://picsum.photos/200/300"
-                    boxSize="150px"
-                    borderRadius="full"
-                    fit="cover"
-                    alt={booking.contact?.name}
-                    mr={30}
-                />
-                <Stack>
-                    <Heading size="lg" color={"white"} mb={0}>
-                        {booking.contact?.name}
-                    </Heading>
-                    <Text color="gray.500">115 Bookings</Text>
-                </Stack>
-            </HStack>
-
-            <Box p={5} border={"2px solid gray"}>
-                <Heading as="h3" color={"palegoldenrod"}>
-                    Ride Details
+            <Stack mb={6}>
+                <Heading size="lg" color={"white"} mb={0} textAlign={"left"}>
+                    Booking #{booking._id}
                 </Heading>
+                <Text color="gray.500">
+                    Created on {formatDateTime(booking.createdAt)}
+                </Text>
+            </Stack>
+
+            {/* Ride Details */}
+            <Box p={5} border="2px solid gray" mb={8}>
+                <HStack justify={"space-between"} mb={4}>
+                    <Heading as="h3" color="palegoldenrod" mb={0}>
+                        Ride Details
+                    </Heading>
+                    <Badge
+                        colorPalette={getStatusColor(booking.status)}
+                        textTransform={"uppercase"}
+                        size={"lg"}
+                    >
+                        {booking.status}
+                    </Badge>
+                </HStack>
                 <Separator border={"2px solid gray"} mb={5} />
 
-                {/* Driver Information */}
                 <Grid
                     templateColumns={{
                         base: "repeat(1, 1fr)",
@@ -96,11 +136,90 @@ const BookingDetail = () => {
                     <GridItem colSpan={1}>
                         <Stack gap={0} mb={5}>
                             <Text fontWeight="medium" color="gray.500">
+                                Trip Date & Time:
+                            </Text>
+                            <HStack>
+                                <Icon as={FaCaretSquareRight} color="yellow" />
+                                <Text>
+                                    {formatDateTime(booking.trip?.date)}
+                                </Text>
+                            </HStack>
+                        </Stack>
+
+                        <Stack gap={0} mb={5}>
+                            <Text fontWeight="medium" color="gray.500">
+                                Pickup Location:
+                            </Text>
+                            <HStack>
+                                <Icon as={FaCar} color="yellow" />
+                                <Text>{booking.trip?.pickup || "N/A"}</Text>
+                            </HStack>
+                        </Stack>
+
+                        <Stack gap={0} mb={5}>
+                            <Text fontWeight="medium" color="gray.500">
+                                Drop-off Location:
+                            </Text>
+                            <HStack>
+                                <Icon as={FaCar} color="yellow" />
+                                <Text>{booking.trip?.dropoff || "N/A"}</Text>
+                            </HStack>
+                        </Stack>
+                    </GridItem>
+
+                    <GridItem colSpan={1}>
+                        <Stack gap={0} mb={5}>
+                            <Text fontWeight="medium" color="gray.500">
+                                Purpose:
+                            </Text>
+                            <HStack>
+                                <Icon as={FaInfo} color="yellow" />
+                                <Text textTransform={"capitalize"}>
+                                    {booking.trip?.ridePurpose || "N/A"}
+                                </Text>
+                            </HStack>
+                        </Stack>
+
+                        {booking.vehicle && (
+                            <Stack gap={0} mb={5}>
+                                <Text fontWeight="medium" color="gray.500">
+                                    Vehicle:
+                                </Text>
+                                <HStack>
+                                    <Icon as={FaCar} color="yellow" />
+                                    <Text>
+                                        {booking.vehicle?.model} (
+                                        {booking.vehicle?.plateNumber})
+                                    </Text>
+                                </HStack>
+                            </Stack>
+                        )}
+                    </GridItem>
+                </Grid>
+            </Box>
+            <Grid
+                templateColumns={{
+                    base: "repeat(1, 1fr)",
+                    md: "repeat(2, 1fr)",
+                }}
+                gap={8}
+                alignItems="stretch" // This makes both grid items equal height
+            >
+                {/* Customer Details */}
+                <GridItem colSpan={hasGuestData ? 1 : 2}>
+                    <Box p={5} border="2px solid gray" height="100%">
+                        <Heading as="h3" color="palegoldenrod" mb={4}>
+                            Contact Details
+                        </Heading>
+                        <Separator border={"2px solid gray"} mb={5} />
+
+                        <Stack gap={0} mb={5}>
+                            <Text fontWeight="medium" color="gray.500">
                                 Full Name:
                             </Text>
                             <HStack>
                                 <Icon as={FaUser} color="yellow" />
-                                <Text>{booking.contact?.name|| ""}</Text>
+                                <Text>{booking.contact?.name || "N/A"}</Text>
                             </HStack>
                         </Stack>
 
@@ -110,74 +229,70 @@ const BookingDetail = () => {
                             </Text>
                             <HStack>
                                 <Icon as={FaRegEnvelope} color="yellow" />
-                                <Text>{booking.contact?.email}</Text>
+                                <Text>{booking.contact?.email || "N/A"}</Text>
                             </HStack>
                         </Stack>
 
-                        {booking.contact?.phone && (
+                        <Stack gap={0} mb={5}>
+                            {booking.contact?.phone && (
+                                <Box>
+                                    <Text fontWeight="medium" color="gray.500">
+                                        Phone:
+                                    </Text>
+                                    <HStack>
+                                        <Icon as={FaPhoneAlt} color="yellow" />
+                                        <Text>
+                                            +65{" "}
+                                            {addSpacingPhone(
+                                                booking.contact?.phone
+                                            )}
+                                        </Text>
+                                    </HStack>
+                                </Box>
+                            )}
+                        </Stack>
+                    </Box>
+                </GridItem>
+
+                {/* Guest Details */}
+                {hasGuestData && (
+                    <GridItem colSpan={1}>
+                        <Box p={5} border="2px solid gray" height="100%">
+                            <Heading as="h3" color="palegoldenrod" mb={4}>
+                                Guest Details
+                            </Heading>
+                            <Separator border={"2px solid gray"} mb={5} />
+
                             <Stack gap={0} mb={5}>
                                 <Text fontWeight="medium" color="gray.500">
-                                    Phone:
+                                    Guest Name:
                                 </Text>
                                 <HStack>
-                                    <Icon as={FaPhoneAlt} color="yellow" />
-                                    <Text>
-                                        +65{" "}
-                                        {addSpacingPhone(booking.contact?.phone)}
-                                    </Text>
+                                    <Icon as={FaUser} color="yellow" />
+                                    <Text>{booking.guest?.name || "N/A"}</Text>
                                 </HStack>
                             </Stack>
-                        )}
+
+                            {booking.guest?.phone && (
+                                <Stack gap={0} mb={5}>
+                                    <Text fontWeight="medium" color="gray.500">
+                                        Guest Phone:
+                                    </Text>
+                                    <HStack>
+                                        <Icon as={FaPhoneAlt} color="yellow" />
+                                        <Text>
+                                            +65{" "}
+                                            {addSpacingPhone(
+                                                booking.guest?.phone
+                                            )}
+                                        </Text>
+                                    </HStack>
+                                </Stack>
+                            )}
+                        </Box>
                     </GridItem>
-
-                    {/* <GridItem colSpan={1}>
-                        {booking.vehicle?.plateNumber && (
-                            <Stack gap={0} mb={5}>
-                                <Text fontWeight="medium" color="gray.500">
-                                    Plate Number:
-                                </Text>
-                                <HStack>
-                                    <Icon as={FaInfo} color="yellow" />
-                                    <Text textTransform="uppercase">
-                                        {booking.vehicle.plateNumber}
-                                    </Text>
-                                </HStack>
-                            </Stack>
-                        )}
-
-                        {booking.vehicle?.model && (
-                            <Stack gap={0} mb={5}>
-                                <Text fontWeight="medium" color="gray.500">
-                                    Car Model:
-                                </Text>
-                                <HStack>
-                                    <Icon as={FaCar} color="yellow" />
-                                    <Text textTransform="capitalize">
-                                        {booking.vehicle.model}
-                                    </Text>
-                                </HStack>
-                            </Stack>
-                        )}
-
-                        {booking.vehicle?.vehicleType && (
-                            <Stack gap={0} mb={5}>
-                                <Text fontWeight="medium" color="gray.500">
-                                    Ride Type:
-                                </Text>
-                                <HStack>
-                                    <Icon
-                                        as={FaCaretSquareRight}
-                                        color="yellow"
-                                    />
-                                    <Text textTransform="capitalize">
-                                        {booking.vehicle.vehicleType}
-                                    </Text>
-                                </HStack>
-                            </Stack>
-                        )}
-                    </GridItem> */}
-                </Grid>
-            </Box>
+                )}
+            </Grid>
         </>
     );
 };

@@ -36,7 +36,7 @@ const getBookingById = async (id) => {
         }
 
         const data = await res.json();
-        console.log("Booking data:", data);
+        // console.log("Booking data:", data);
         return data; // returns the booking object
     } catch (err) {
         // console.log(err);

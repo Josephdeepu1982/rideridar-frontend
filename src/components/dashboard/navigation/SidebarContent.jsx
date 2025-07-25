@@ -1,13 +1,18 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import NavigationItem from "./NavigationItem";
 
-import { navigationItems } from "./navigationConfig";
+import { UserContext } from "@/contexts/UserContext";
+import { getNavigationItems } from "./navigationConfig";
 
 // onCLose prop needed when in mobile view to close the sidebar
 const SidebarContent = ({ onClose, ...rest }) => {
+    const { user } = useContext(UserContext);
+    const navigationItems = getNavigationItems(user.userType);
+    
     return (
         <Box
             transition="0.3s ease"

@@ -25,6 +25,7 @@ import Bookings from "./components/dashboard/Bookings";
 import Drivers from "./components/dashboard/Drivers";
 import Account from "./components/dashboard/Account";
 import DriverDetail from "./components/dashboard/driver/DriverDetail";
+import LoginForm from "./components/dashboard/login/LoginForm";
 
 const Layout = ({ children }) => {
     const location = useLocation();
@@ -59,11 +60,12 @@ const App = () => {
 
                     {/* Dashboard routes with nested structure */}
                     <Route path="/dashboard" element={<Dashboard />}>
-                        {/* Default dashboard route - redirects to overview */}
+                        {/* Default dashboard route - redirects to login */}
                         <Route
                             index
-                            element={<Navigate to="overview" replace />}
+                            element={<Navigate to="login" replace />}
                         />
+                        <Route path="login" element={<LoginForm />} />
                         <Route path="overview" element={<Overview />} />
                         <Route path="bookings" element={<Bookings />} />
                         <Route path="drivers" element={<Drivers />} />

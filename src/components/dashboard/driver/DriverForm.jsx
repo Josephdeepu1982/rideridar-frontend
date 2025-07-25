@@ -86,7 +86,6 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
             const response = await addDriver({
                 ...newDriverData,
                 password: passwordGenerator(),
-                jwt: "wkkw",
             });
 
             if (response.ok) {

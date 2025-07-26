@@ -1,6 +1,8 @@
 import { getBookings } from "@/services/bookingService";
+
 import { Grid, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+
 import BookingCard from "./BookingCard";
 
 const BookingList = () => {

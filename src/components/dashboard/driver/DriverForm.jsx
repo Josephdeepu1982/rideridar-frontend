@@ -8,6 +8,8 @@ import {
     Select,
     VStack,
     InputGroup,
+    IconButton,
+    Clipboard,
 } from "@chakra-ui/react";
 import { withMask } from "use-mask-input";
 
@@ -15,10 +17,12 @@ import { vehicleTypes } from "./driverConfig";
 import { passwordGenerator } from "../utils/passwordGenerator";
 import { addDriver } from "@/services/driverService";
 
-const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
+const DriverForm = ({ newDriverData, setNewDriverData }) => {
     // add loading and error states
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [submitError, setSubmitError] = useState(null);
+    const [password, setPassword] = useState("");
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -79,14 +83,17 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
             return;
         }
 
+        // generate password
+        const pass = passwordGenerator();
+        setPassword(pass);
+
         // set the current submit state after previous checks
         setIsSubmitting(true);
 
         try {
             const response = await addDriver({
                 ...newDriverData,
-                password: passwordGenerator(),
-                jwt: "wkkw",
+                password: pass,
             });
 
             if (response.ok) {
@@ -105,9 +112,7 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
                     },
                 });
 
-                // close modal and show success message
-                if (onSuccess) onSuccess();
-                alert("Driver added successfully!");
+                setSubmitted(true);
             } else {
                 // set the error message received from server
                 setSubmitError("Failed to create driver");
@@ -121,7 +126,37 @@ const DriverForm = ({ newDriverData, setNewDriverData, onSuccess }) => {
         }
     };
 
-    return (
+    const ClipboardIconButton = () => {
+        return (
+            <Clipboard.Trigger asChild>
+                <IconButton variant="surface" size="xs" me="-2">
+                    <Clipboard.Indicator />
+                </IconButton>
+            </Clipboard.Trigger>
+        );
+    };
+
+    return submitted ? (
+        <VStack p={4} spacing={4} align="center">
+            <Text fontSize="lg" color="green.300">
+                Driver added successfully!
+            </Text>
+
+            <Text mt={5}>Your generated password:</Text>
+            <Clipboard.Root maxW="300px" value={password}>
+                <InputGroup endElement={<ClipboardIconButton />}>
+                    <Clipboard.Input asChild>
+                        <Input />
+                    </Clipboard.Input>
+                </InputGroup>
+            </Clipboard.Root>
+
+            <Text color="red.500" textAlign="center" my={5}>
+                Note: The generated password will only appear once. <br />
+                Please copy and store it safely.
+            </Text>
+        </VStack>
+    ) : (
         <form onSubmit={handleSubmit}>
             <VStack p={0} align="stretch" gap={3}>
                 {/* Driver Name */}

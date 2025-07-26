@@ -1,6 +1,8 @@
 import { getBookings } from "@/services/bookingService";
+
 import { Grid, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+
 import BookingCard from "./BookingCard";
 
 const BookingList = () => {
@@ -11,7 +13,7 @@ const BookingList = () => {
         const fetchBookings = async () => {
             try {
                 const bookings = await getBookings();
-                console.log("Bookings fetched:", bookings);
+                // console.log("Bookings fetched:", bookings);
                 setBookingsData(bookings);
             } catch (error) {
                 console.error("Error fetching bookings:", error);

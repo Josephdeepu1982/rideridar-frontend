@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Flex, IconButton, Text, HStack } from "@chakra-ui/react";
@@ -5,10 +6,13 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { FaBars } from "react-icons/fa";
 
 import UserProfileMenu from "./UserProfileMenu";
-import { navigationItems } from "./navigationConfig";
+import { UserContext } from "@/contexts/UserContext";
+import { getNavigationItems } from "./navigationConfig";
 
 const MobileNavigation = ({ onOpen, ...rest }) => {
     const location = useLocation();
+    const { user } = useContext(UserContext);
+    const navigationItems = getNavigationItems(user.userType);
 
     // Find current page name based on route
     const getCurrentPageName = () => {

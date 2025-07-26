@@ -1,7 +1,18 @@
 import { useState } from "react";
-import { Heading, Button, Dialog, Portal, CloseButton } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
+
+import {
+    Heading,
+    Button,
+    Dialog,
+    Portal,
+    CloseButton,
+    HStack,
+} from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
+
 import DriverList from "./driver/DriverList";
-import DriverForm from "./driver/DriverForm"; 
+import DriverForm from "./driver/DriverForm";
 
 const Drivers = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,21 +31,6 @@ const Drivers = () => {
         setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        // Reset form data when closing modal
-        setNewDriverData({
-            name: "",
-            phone: "",
-            email: "",
-            vehicle: {
-                plateNumber: "",
-                model: "",
-                vehicleType: "sedan",
-            },
-        });
-    };
-
     return (
         <>
             <Heading as="h1" textAlign="left" color="white" mb={5}>
@@ -47,13 +43,16 @@ const Drivers = () => {
                 onOpenChange={(e) => setIsModalOpen(e.open)}
             >
                 <Dialog.Trigger asChild>
-                    <Button
-                        onClick={handleAddDriverClick}
-                        colorScheme="blue"
-                        mb={4}
-                    >
-                        Add Driver
-                    </Button>
+                    <HStack>
+                        <Button
+                            onClick={handleAddDriverClick}
+                            mb={5}
+                            display={"flex"}
+                            gap={4}
+                        >
+                            <FaPlus /> Add Driver
+                        </Button>
+                    </HStack>
                 </Dialog.Trigger>
 
                 <Portal>
@@ -61,14 +60,15 @@ const Drivers = () => {
                     <Dialog.Positioner>
                         <Dialog.Content maxW="600px" color="white">
                             <Dialog.Header>
-                                <Dialog.Title as="h3">Add New Driver</Dialog.Title>
+                                <Dialog.Title as="h3">
+                                    Add New Driver
+                                </Dialog.Title>
                             </Dialog.Header>
 
                             <Dialog.Body>
                                 <DriverForm
                                     newDriverData={newDriverData}
                                     setNewDriverData={setNewDriverData}
-                                    onSuccess={handleCloseModal}
                                 />
                             </Dialog.Body>
 
@@ -81,6 +81,8 @@ const Drivers = () => {
             </Dialog.Root>
 
             <DriverList />
+
+            <Outlet />
         </>
     );
 };

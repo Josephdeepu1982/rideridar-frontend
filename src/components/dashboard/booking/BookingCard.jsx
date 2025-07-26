@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button, Card, HStack, Tag, Stack, Icon, Text } from "@chakra-ui/react";
 
 import { FaRegUserCircle, FaRegCalendar, FaCar } from "react-icons/fa";
@@ -5,6 +6,8 @@ import { FaMapLocation, FaMapLocationDot } from "react-icons/fa6";
 import { TbSteeringWheel } from "react-icons/tb";
 
 const BookingCard = ({ data, index }) => {
+    const navigate = useNavigate();
+
     const getStatusColor = (status) => {
         switch (status) {
             case "pending":
@@ -19,6 +22,15 @@ const BookingCard = ({ data, index }) => {
                 return "red";
             default:
                 return "yellow";
+        }
+    };
+
+    const handleViewDetails = () => {
+        const dataId = data._id;
+
+        if (dataId) {
+            // Navigate to the driver detail page
+            navigate(`/dashboard/bookings/${dataId}`);
         }
     };
 
@@ -100,7 +112,12 @@ const BookingCard = ({ data, index }) => {
                         </Tag.Root>
                     ) : null}
                 </HStack>
-                <Button variant="outline" m={0} w="100%">
+                <Button
+                    variant="outline"
+                    m={0}
+                    w="100%"
+                    onClick={handleViewDetails}
+                >
                     View Details
                 </Button>
             </Card.Footer>

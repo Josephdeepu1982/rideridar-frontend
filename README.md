@@ -3,6 +3,8 @@
 **Rideridar** is a private, luxury ride-booking app for senior executives in Singapore.  
 This repository contains the **React-based frontend** of the application.
 
+Link to backend of the project can be found [here](https://github.com/vinnyvaleria/rideridar-backend).
+
 ---
 
 ## 📌 Project Overview

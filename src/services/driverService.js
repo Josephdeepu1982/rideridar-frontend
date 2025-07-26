@@ -34,7 +34,7 @@ const getDriverById = async (id) => {
         }
 
         const data = await res.json();
-        console.log("Driver data:", data);
+        // console.log("Driver data:", data);
         return data; // returns the driver object
     } catch (err) {
         // console.log(err);
@@ -97,7 +97,7 @@ const getFilteredDrivers = async (type, status) => {
         // console.log("Filtered drivers data:", data);
         return data;
     } catch (err) {
-        console.error("Error fetching filtered drivers:", err);
+        // console.error("Error fetching filtered drivers:", err);
         throw new Error("Failed to fetch filtered drivers");
     }
 };

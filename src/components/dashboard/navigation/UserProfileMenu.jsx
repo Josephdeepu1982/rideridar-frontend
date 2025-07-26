@@ -62,16 +62,17 @@ const UserProfileMenu = () => {
                                 fontSize="sm"
                                 color={useColorModeValue("gray.800", "white")}
                             >
-                                Tester Name
+                                {user.name}
                             </Text>
                             <Text
+                                textTransform={"capitalize"}
                                 fontSize="xs"
                                 color={useColorModeValue(
                                     "gray.600",
                                     "gray.400"
                                 )}
                             >
-                                Admin
+                                {user.userType}
                             </Text>
                         </VStack>
                         <Box display={{ base: "none", md: "flex" }}>

@@ -8,7 +8,7 @@ import Login from "./Login";
 
 const Dashboard = () => {
     const { user, setUser } = useContext(UserContext);
-    setUser(true);
+    // setUser(true);
 
     return (
         <>

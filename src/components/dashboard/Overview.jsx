@@ -1,4 +1,5 @@
 import { Heading } from "@chakra-ui/react";
+import OverviewLayout from "./overview/OverviewLayout";
 
 const Overview = () => {
     // console.log("Overview component is rendering"); // Debug log
@@ -8,6 +9,7 @@ const Overview = () => {
                 Overview
             </Heading>
             {/* Additional components or content related to the overview can be added here */}
+            <OverviewLayout />
         </>
     );
 };

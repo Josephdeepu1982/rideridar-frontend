@@ -61,10 +61,10 @@ const assignDriverToBooking = async (bookingId, driverId) => {
         }
 
         const data = await res.json();
-        console.log("Updated booking data:", data);
+        // console.log("Updated booking data:", data);
         return data;
     } catch (err) {
-        console.error("Error assigning driver:", err);
+        // console.error("Error assigning driver:", err);
         throw new Error("Failed to assign driver");
     }
 };

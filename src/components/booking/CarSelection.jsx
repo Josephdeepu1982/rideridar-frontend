@@ -101,7 +101,7 @@ const CarSelection = () => {
                     );
                 })}
             </div>
-            <div>
+            <div className="car-selection-btn">
                 <button onClick={handleBack} className="back-btn">
                     Back
                 </button>

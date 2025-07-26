@@ -18,7 +18,7 @@ const createBooking = async (bookingData) => {
         });
         return res.json();
     } catch (error) {
-        console.error("Error Creating Booking", error);
+        // console.error("Error Creating Booking", error);
     }
 };
 

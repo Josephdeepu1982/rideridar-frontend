@@ -1,6 +1,8 @@
+
 import React, { useState } from "react";
 import "../../assets/css/booking/TabBookingForm.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 const TabBookingForm = () => {
   const navigate = useNavigate();
@@ -23,6 +25,36 @@ const TabBookingForm = () => {
     time: "",
   });
 
+  const [pickupSuggestions, setPickupSuggestions] = useState([]);
+  const [destinationSuggestions, setDestinationSuggestions] = useState([]);
+
+  const fetchSuggestions = async (query, setSuggestions) => {
+    if (query.length < 3) return;
+
+    const encodedQuery = encodeURIComponent(query);
+    const authToken = import.meta.env.VITE_ONEMAP_AUTH_TOKEN;
+    const url = `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${encodedQuery}&returnGeom=Y&getAddrDetails=Y&pageNum=1`;
+
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: authToken,
+        },
+      });
+      const data = await res.json();
+      console.log("OneMap response:", data);
+
+      if (data.results && data.results.length > 0) {
+        setSuggestions(data.results);
+      } else {
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error("Error fetching addresses", error);
+    }
+  };
+
   //event hanldlers for "airport" & "local"
   const handleAirportChange = (event) => {
     const name = event.target.name;
@@ -32,6 +64,12 @@ const TabBookingForm = () => {
     setAirportFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
+
+    if (name === "pickupLocation") {
+      fetchSuggestions(value, setPickupSuggestions);
+    } else if (name === "destination") {
+      fetchSuggestions(value, setDestinationSuggestions);
+    }
   };
 
   const handleLocalChange = (event) => {
@@ -41,6 +79,12 @@ const TabBookingForm = () => {
     setLocalFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
+
+    if (name === "pickupLocation") {
+      fetchSuggestions(value, setPickupSuggestions);
+    } else if (name === "destination") {
+      fetchSuggestions(value, setDestinationSuggestions);
+    }
   };
 
   //determines which form data to send based on active tab
@@ -66,7 +110,7 @@ const TabBookingForm = () => {
         ridePurpose: ridePurpose,
       },
     });
-    // console.log(`Form submitted ${activeTab}:`, formDataToSend);
+    console.log(`Form submitted ${activeTab}:`, formDataToSend);
   };
 
   return (
@@ -103,38 +147,94 @@ const TabBookingForm = () => {
         {/* value toggles between "airport" and "local" using terenary operator for active tab */}
         <div className="form-group">
           <label>Pickup Location</label>
-          <input
-            type="text"
-            name="pickupLocation"
-            value={
-              activeTab === "airport"
-                ? airportFormData.pickupLocation
-                : localFormData.pickupLocation
-            }
-            onChange={
-              activeTab === "airport" ? handleAirportChange : handleLocalChange
-            }
-            placeholder="e.g. Terminal 1"
-            required
-          />
+          <div className="input-wrapper">
+            <input
+              type="text"
+              name="pickupLocation"
+              value={
+                activeTab === "airport"
+                  ? airportFormData.pickupLocation
+                  : localFormData.pickupLocation
+              }
+              onChange={
+                activeTab === "airport"
+                  ? handleAirportChange
+                  : handleLocalChange
+              }
+              placeholder="e.g. Terminal 1"
+              required
+            />
+            <ul className="suggestions-list">
+              {pickupSuggestions.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => {
+                    const selected = item.ADDRESS;
+                    if (activeTab === "airport") {
+                      setAirportFormData((prev) => ({
+                        ...prev,
+                        pickupLocation: selected,
+                      }));
+                    } else {
+                      setLocalFormData((prev) => ({
+                        ...prev,
+                        pickupLocation: selected,
+                      }));
+                    }
+                    setPickupSuggestions([]);
+                  }}
+                >
+                  {item.ADDRESS}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="form-group">
           <label>Destination</label>
-          <input
-            type="text"
-            name="destination"
-            value={
-              activeTab === "airport"
-                ? airportFormData.destination
-                : localFormData.destination
-            }
-            onChange={
-              activeTab === "airport" ? handleAirportChange : handleLocalChange
-            }
-            placeholder="e.g. Marina Bay Sands Hotel"
-            required
-          />
+          <div className="input-wrapper">
+            <input
+              type="text"
+              name="destination"
+              value={
+                activeTab === "airport"
+                  ? airportFormData.destination
+                  : localFormData.destination
+              }
+              onChange={
+                activeTab === "airport"
+                  ? handleAirportChange
+                  : handleLocalChange
+              }
+              placeholder="e.g. Marina Bay Sands Hotel"
+              required
+            />
+            <ul className="suggestions-list">
+              {destinationSuggestions.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => {
+                    const selected = item.ADDRESS;
+                    if (activeTab === "airport") {
+                      setAirportFormData((prev) => ({
+                        ...prev,
+                        destination: selected,
+                      }));
+                    } else {
+                      setLocalFormData((prev) => ({
+                        ...prev,
+                        destination: selected,
+                      }));
+                    }
+                    setDestinationSuggestions([]);
+                  }}
+                >
+                  {item.ADDRESS}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="form-group-grouped">
           <div className="form-group">
@@ -183,3 +283,4 @@ const TabBookingForm = () => {
 };
 
 export default TabBookingForm;
+

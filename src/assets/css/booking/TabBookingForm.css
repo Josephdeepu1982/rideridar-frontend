@@ -83,6 +83,35 @@
   background-color: var(--secondary-color);
 }
 
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.suggestions-list {
+  background-color: white;
+  top: 100%;
+  border: 1px;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+
+.suggestions-list li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
 @media screen and (max-width: 600px) {
   .form-group-grouped {
     flex-direction: column;

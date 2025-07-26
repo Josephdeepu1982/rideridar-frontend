@@ -24,16 +24,16 @@ Admins:
 ## 📌 Screenshots
 
 Landing Page:
-![Landing Page image](../rideridar-frontend/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.21.33%20PM.png)
+![Landing Page image](/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.21.33%20PM.png)
 
 Car Selection Page:
-![Car Selection image](../rideridar-frontend/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.22.31%20PM.png)
+![Car Selection image](/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.22.31%20PM.png)
 
 Booking Form:
-![Booking Form image](../rideridar-frontend/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.24.59%20PM.png)
+![Booking Form image](/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.24.59%20PM.png)
 
 Confirmation Page:
-![Confirmation Page image](../rideridar-frontend/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.25.44%20PM.png)
+![Confirmation Page image](/src/assets/images/Screenshots/Screenshot%202025-07-17%20at%208.25.44%20PM.png)
 
 ---
 
